@@ -43,6 +43,9 @@ credits
 
 - [Douglas Crockford], wrote the original JSLint and rhino.js runner
 
+- [Nathan Landis][my8bird], updated nodelint.js to Node's new API.
+
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
+[my8bird]: http://github.com/my8bird
