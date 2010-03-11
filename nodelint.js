@@ -55,8 +55,9 @@ function main() {
         source,
         i,
         error,
+        __filename_realpath = fs.realpathSync(__filename),
         jslint_path = join_posix_path(
-          dirname(__filename),
+          dirname(__filename_realpath ? __filename_realpath : __filename),
           'jslint/jslint.js'
           );
     eval(fs.readFileSync(jslint_path));
@@ -74,7 +75,7 @@ function main() {
     if (!JSLINT(source, {bitwise: true, eqeqeq: true, immed: true,
                 newcap: true, nomen: false, onevar: true, plusplus: true,
                 predef: ['exports', 'module', 'require', 'process', '__filename', 'GLOBAL'],
-                regexp: true, rhino: false, undef: true, white: true})) {
+                regexp: true, rhino: false, undef: true, white: true, indent: 2})) {
         for (i = 0; i < JSLINT.errors.length; i += 1) {
             error = JSLINT.errors[i];
             if (error) {
