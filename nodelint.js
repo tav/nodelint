@@ -66,12 +66,14 @@ eval(fs.readFileSync(join_posix_path(SCRIPT_DIRECTORY, 'jslint/jslint.js')));
 // skript main funktion
 // -----------------------------------------------------------------------------
 
-function lint(files, config_file) {
+function lint(files, default_config_file, config_file) {
 
     var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
         retval = 0,
         error_prefix,
-        error_suffix;
+        error_suffix,
+        option_name,
+        real_options;
 
     if (!files.length) {
 	    sys.puts(
@@ -82,15 +84,32 @@ function lint(files, config_file) {
         return 1;
     }
 
-    eval(fs.readFileSync(config_file));
+    eval(fs.readFileSync(default_config_file));
 
     if (typeof options === 'undefined') {
-	    sys.puts("Error: there's no `options` variable in the config file.");
+	    sys.puts("Error: there's no `options` variable in the default config file.");
         return 1;
     }
+    
+    real_options = options;
+    
+    if (typeof config_file !== 'undefined') {
+        eval(fs.readFileSync(config_file));
 
-    error_prefix = options.error_prefix;
-    error_suffix = options.error_suffix;
+        if (typeof options === 'undefined') {
+	        sys.puts("Error: there's no `options` variable in the config file.");
+            return 1;
+        }
+        
+        for (option_name in options) {
+            if (typeof option_name === 'string') {
+                real_options[option_name] = options[option_name];
+            }
+        }
+    }
+
+    error_prefix = real_options.error_prefix;
+    error_suffix = real_options.error_suffix;
 
     files.forEach(function (file) {
 
@@ -110,7 +129,7 @@ function lint(files, config_file) {
         // remove any shebangs
         source = source.replace(/^\#\!.*/, '');
 
-        if (!JSLINT(source, options)) {
+        if (!JSLINT(source, real_options)) {
             for (i = 0; i < JSLINT.errors.length; i += 1) {
                 error = JSLINT.errors[i];
                 if (error) {
@@ -157,6 +176,6 @@ if (module.id === '.') {
         }
     });
 
-    process.exit(lint(files, config_file || DEFAULT_CONFIG_FILE));
+    process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file));
 
 }
