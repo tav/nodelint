@@ -45,7 +45,10 @@ credits
 
 - [Nathan Landis][my8bird], updated nodelint.js to Node's new API.
 
+- [Oleg Efimov][Sannis], updated nodelint.js to be run from a symlink.
+
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
 [my8bird]: http://github.com/my8bird
+[Sannis]: http://github.com/Sannis
