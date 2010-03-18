@@ -4,17 +4,24 @@
  * This is a command line runner of jslint for Node.js
  *
  * Changes released into the Public Domain by tav <tav@espians.com>
+ * Support for config/multiple files added by Corey Hart <corey@codenothing.com>
  *
  * Adapted from rhino.js, Copyright (c) 2002 Douglas Crockford
  * Adapted from posixpath.py in the Python Standard Library.
  *
  */
 
-/*global JSLINT */
+/*global JSLINT, options */
 /*jslint evil: true, regexp: false */
 
 var fs = require('fs'),
-    sys = require('sys');
+    sys = require('sys'),
+    SCRIPT_DIRECTORY,
+    DEFAULT_CONFIG_FILE,
+    params,
+    files,
+    config_file,
+    config_param_found;
 
 // -----------------------------------------------------------------------------
 // file manipulation utility funktions
@@ -47,53 +54,109 @@ function dirname(path) {
 }
 
 // -----------------------------------------------------------------------------
+// load jslint itself and set the path to the default config file
+// -----------------------------------------------------------------------------
+
+SCRIPT_DIRECTORY = dirname(fs.realpathSync(__filename));
+DEFAULT_CONFIG_FILE = join_posix_path(SCRIPT_DIRECTORY, 'config.js');
+
+eval(fs.readFileSync(join_posix_path(SCRIPT_DIRECTORY, 'jslint/jslint.js')));
+
+// -----------------------------------------------------------------------------
 // skript main funktion
 // -----------------------------------------------------------------------------
 
-function main() {
-    var file = process.ARGV[2],
-        source,
-        i,
-        error,
-        __filename_realpath = fs.realpathSync(__filename),
-        jslint_path = join_posix_path(
-          dirname(__filename_realpath ? __filename_realpath : __filename),
-          'jslint/jslint.js'
-          );
-    eval(fs.readFileSync(jslint_path));
-    if (!file) {
-	    sys.puts("Usage: nodelint.js file.js");
-        process.exit(1);
+function lint(files, config_file) {
+
+    var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
+        retval = 0,
+        error_prefix,
+        error_suffix;
+
+    if (!files.length) {
+	    sys.puts(
+            "Usage: nodelint.js file.js [options]\n" +
+            "Options:\n\n" +
+            "  --config FILE       the path to a config.js file"
+        );
+        return 1;
     }
-    try {
-        source = fs.readFileSync(file);
-    } catch (err) {
-        sys.puts("Error: Opening file <" + file + ">");
-        sys.puts(err);
-        process.exit(1);
+
+    eval(fs.readFileSync(config_file));
+
+    if (typeof options === 'undefined') {
+	    sys.puts("Error: there's no `options` variable in the config file.");
+        return 1;
     }
-    // remove any shebangs
-    source = source.replace(/^\#\!.*/, '');
-    if (!JSLINT(source, {bitwise: true, eqeqeq: true, immed: true,
-                newcap: true, nomen: false, onevar: true, plusplus: true,
-                predef: ['exports', 'module', 'require', 'process', '__filename', 'GLOBAL'],
-                regexp: true, rhino: false, undef: true, white: true})) {
-        for (i = 0; i < JSLINT.errors.length; i += 1) {
-            error = JSLINT.errors[i];
-            if (error) {
-                sys.puts(
-                  'Lint at line ' + error.line + ' character ' +
-                  error.character + ': ' + error.reason
-                );
-                sys.puts((error.evidence || '')
-                   .replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
-                sys.puts('');
-            }
+
+    error_prefix = options.error_prefix;
+    error_suffix = options.error_suffix;
+
+    files.forEach(function (file) {
+
+        var source,
+            i,
+            error;
+
+        try {
+            source = fs.readFileSync(file);
+        } catch (err) {
+            sys.puts("Error: Opening file <" + file + ">");
+            sys.puts(err + '\n');
+            retval = 1;
+            return;
         }
-        process.exit(2);
-    } else {
-        sys.puts("Success: No problems found in <" + file + ">");
-    }
+
+        // remove any shebangs
+        source = source.replace(/^\#\!.*/, '');
+
+        if (!JSLINT(source, options)) {
+            for (i = 0; i < JSLINT.errors.length; i += 1) {
+                error = JSLINT.errors[i];
+                if (error) {
+                    process.stdio.writeError(
+                        error_prefix + file + ', line ' + error.line +
+                        ', character ' + error.character + error_suffix +
+                        error.reason + '\n' +
+                        (error.evidence || '').replace(error_regexp, "$1") +
+                        "\n\n"
+                    );
+                }
+            }
+            retval = 2;
+            return;
+        }
+
+    });
+
+    return retval;
+
 }
 
-main();
+// -----------------------------------------------------------------------------
+// run the file as a script if called directly, i.e. not imported via require()
+// -----------------------------------------------------------------------------
+
+if (module.id === '.') {
+
+    params = process.ARGV.splice(2);
+    files = [];
+
+    // a very basic pseudo --options parser
+    params.forEach(function (param) {
+        if (param.slice(0, 9) === "--config=") {
+            config_file = param.slice(9);
+        } else if (param === '--config') {
+            config_param_found = true;
+        } else if (config_param_found) {
+            config_file = param;
+            config_param_found = false;
+        } else if ((param === '--help') || (param === '-h')) {
+        } else {
+            files.push(param);
+        }
+    });
+
+    process.exit(lint(files, config_file || DEFAULT_CONFIG_FILE));
+
+}
