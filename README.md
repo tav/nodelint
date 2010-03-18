@@ -30,10 +30,37 @@ Enjoy!
 config
 ------
 
-You can set JSLINT options by modifying the default `config.js` file or
-specifying your own config file with the optional `--config` parameter, e.g.
+You can set JSLINT options by modifying the default `config.js` file.
+Also, you can override it by passing another config file
+with the optional `--config` parameter, e.g.
 
-    $ nodelint.js file1 file2 --config path/to/your/config/file
+    $ nodelint.js file1 file2 --config path/to/your/config/file.js
+
+For example, if you have config.js:
+
+    var options = {
+        adsafe     : false,
+        bitwise    : true,
+        error_prefix: "\u001b[1m",
+        error_suffix: ":\u001b[0m "
+    };
+
+and you own path/to/your/config/file.js:
+
+    var options = {
+        bitwise    : false,
+        browser    : false,
+    };
+
+then actual options with this run command will be:
+
+    var options = {
+        adsafe     : false,
+        bitwise    : false,
+        browser    : false,
+        error_prefix: "\u001b[1m",
+        error_suffix: ":\u001b[0m "
+    };
 
 Take a look at [JSLINT's Options] to see what to put in the `options` variable.
 
