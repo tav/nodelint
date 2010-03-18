@@ -27,6 +27,17 @@ Otherwise, you need to run it with node:
 Enjoy!
 
 
+config
+------
+
+You can set JSLINT options by modifying the default `config.js` file or
+specifying your own config file with the optional `--config` parameter, e.g.
+
+    $ nodelint.js file1 file2 --config path/to/your/config/file
+
+Take a look at [JSLINT's Options] to see what to put in the `options` variable.
+
+
 contribute
 ----------
 
@@ -47,8 +58,13 @@ credits
 
 - [Oleg Efimov][Sannis], updated nodelint.js to be run from a symlink.
 
+- [Corey Hart], updated nodelint.js with multiple files and config support.
+
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
 [my8bird]: http://github.com/my8bird
 [Sannis]: http://github.com/Sannis
+[Corey Hart]: http://www.codenothing.com
+
+[JSLINT's Options]: http://www.jslint.com/lint.html#options

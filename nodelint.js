@@ -75,9 +75,9 @@ function lint(files, config_file) {
 
     if (!files.length) {
 	    sys.puts(
-            "Usage: nodelint.js file.js [options]\n" +
+            "Usage: nodelint.js file.js [file2 file3 ...] [options]\n" +
             "Options:\n\n" +
-            "  --config FILE       the path to a config.js file"
+            "  --config FILE       the path to a config.js file with JSLINT options"
         );
         return 1;
     }
