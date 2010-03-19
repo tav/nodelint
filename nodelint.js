@@ -90,9 +90,9 @@ function lint(files, default_config_file, config_file) {
 	    sys.puts("Error: there's no `options` variable in the default config file.");
         return 1;
     }
-    
+
     real_options = options;
-    
+
     if (typeof config_file !== 'undefined') {
         eval(fs.readFileSync(config_file));
 
@@ -100,7 +100,7 @@ function lint(files, default_config_file, config_file) {
 	        sys.puts("Error: there's no `options` variable in the config file.");
             return 1;
         }
-        
+
         for (option_name in options) {
             if (typeof option_name === 'string') {
                 real_options[option_name] = options[option_name];
