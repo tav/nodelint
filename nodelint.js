@@ -133,12 +133,12 @@ function lint(files, default_config_file, config_file) {
             for (i = 0; i < JSLINT.errors.length; i += 1) {
                 error = JSLINT.errors[i];
                 if (error) {
-                    process.stdio.writeError(
+                    sys.error(
                         error_prefix + file + ', line ' + error.line +
                         ', character ' + error.character + error_suffix +
                         error.reason + '\n' +
                         (error.evidence || '').replace(error_regexp, "$1") +
-                        "\n\n"
+                        "\n"
                     );
                 }
             }
