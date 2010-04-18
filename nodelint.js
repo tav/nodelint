@@ -21,7 +21,9 @@ var fs = require('fs'),
     params,
     files,
     config_file,
-    config_param_found;
+    config_param_found,
+    reporter_file,
+    reporter_param_found;
 
 // -----------------------------------------------------------------------------
 // file manipulation utility funktions
@@ -58,13 +60,13 @@ function dirname(path) {
 // -----------------------------------------------------------------------------
 
 function reporter(results) {
-  var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
-      i,
-      len = results.length,
-      str = '',
-      error_prefix = "\u001b[1m",
-      error_suffix = ":\u001b[0m ",
-      error;
+    var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
+        i,
+        len = results.length,
+        str = '',
+        error_prefix = "\u001b[1m",
+        error_suffix = ":\u001b[0m ",
+        error;
       
       for (i = 0; i < len; i += 1) {
         error = results[i].error;
@@ -92,7 +94,7 @@ eval(fs.readFileSync(join_posix_path(SCRIPT_DIRECTORY, 'jslint/jslint.js')));
 // skript main funktion
 // -----------------------------------------------------------------------------
 
-function lint(files, default_config_file, config_file) {
+function lint(files, default_config_file, config_file, reporter_file) {
 
     var retval = 0,
         results = [],
@@ -130,6 +132,10 @@ function lint(files, default_config_file, config_file) {
                 real_options[option_name] = options[option_name];
             }
         }
+    }
+    
+    if (typeof reporter_file !== 'undefined') {
+      eval(fs.readFileSync(reporter_file));
     }
 
     files.forEach(function (file) {
@@ -184,12 +190,17 @@ if (module.id === '.') {
         } else if (config_param_found) {
             config_file = param;
             config_param_found = false;
+        } else if (param === '--reporter') {
+            reporter_param_found = true;
+        } else if (reporter_param_found) {
+            reporter_file = param;
+            reporter_param_found = false;
         } else if ((param === '--help') || (param === '-h')) {
         } else {
             files.push(param);
         }
     });
 
-    process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file));
+    process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file, reporter_file));
 
 }
