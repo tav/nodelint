@@ -67,18 +67,16 @@ function reporter(results) {
         error_prefix = "\u001b[1m",
         error_suffix = ":\u001b[0m ",
         error;
-      
-      for (i = 0; i < len; i += 1) {
+        
+    for (i = 0; i < len; i += 1) {
         error = results[i].error;
-
         str += error_prefix + results[i].file  + ', line ' + error.line +
-               ', character ' + error.character + ', ' + error_suffix +
-               error.reason + '\n' +
-               (error.evidence || '').replace(error_regexp, "$1") + '\n';
-      }
-
-      str += len + ' error' + ((len === 1) ? '' : 's');
-      sys.error(str);
+             ', character ' + error.character + ', ' + error_suffix +
+              error.reason + '\n' +
+              (error.evidence || '').replace(error_regexp, "$1") + '\n';
+    }
+    str += len + ' error' + ((len === 1) ? '' : 's');
+    sys.error(str);
 }
 
 // -----------------------------------------------------------------------------
@@ -135,7 +133,7 @@ function lint(files, default_config_file, config_file, reporter_file) {
     }
     
     if (typeof reporter_file !== 'undefined') {
-      eval(fs.readFileSync(reporter_file));
+        eval(fs.readFileSync(reporter_file));
     }
 
     files.forEach(function (file) {
@@ -160,7 +158,7 @@ function lint(files, default_config_file, config_file, reporter_file) {
             for (i = 0; i < JSLINT.errors.length; i += 1) {
                 error = JSLINT.errors[i];
                 if (error) {
-                  results.push({file: file, error: error});
+                    results.push({file: file, error: error});
                 }
             }
             retval = 2;
@@ -202,5 +200,4 @@ if (module.id === '.') {
     });
 
     process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file, reporter_file));
-
 }
