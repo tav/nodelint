@@ -1,3 +1,5 @@
+// example shell call: $ node nodelint.js nodelint.js --reporter reporters/summarize.js
+
 var sys = require('sys');
 
 function reporter(results) {
