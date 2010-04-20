@@ -21,7 +21,9 @@ var fs = require('fs'),
     params,
     files,
     config_file,
-    config_param_found;
+    config_param_found,
+    reporter_file,
+    reporter_param_found;
 
 // -----------------------------------------------------------------------------
 // file manipulation utility funktions
@@ -54,6 +56,30 @@ function dirname(path) {
 }
 
 // -----------------------------------------------------------------------------
+// default reporter for printing to a console
+// -----------------------------------------------------------------------------
+
+function reporter(results) {
+    var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
+        i,
+        len = results.length,
+        str = '',
+        error_prefix = "\u001b[1m",
+        error_suffix = ":\u001b[0m ",
+        error;
+        
+    for (i = 0; i < len; i += 1) {
+        error = results[i].error;
+        str += error_prefix + results[i].file  + ', line ' + error.line +
+             ', character ' + error.character + ', ' + error_suffix +
+              error.reason + '\n' +
+              (error.evidence || '').replace(error_regexp, "$1") + '\n';
+    }
+    str += len + ' error' + ((len === 1) ? '' : 's');
+    sys.error(str);
+}
+
+// -----------------------------------------------------------------------------
 // load jslint itself and set the path to the default config file
 // -----------------------------------------------------------------------------
 
@@ -66,12 +92,10 @@ eval(fs.readFileSync(join_posix_path(SCRIPT_DIRECTORY, 'jslint/jslint.js')));
 // skript main funktion
 // -----------------------------------------------------------------------------
 
-function lint(files, default_config_file, config_file) {
+function lint(files, default_config_file, config_file, reporter_file) {
 
-    var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
-        retval = 0,
-        error_prefix,
-        error_suffix,
+    var retval = 0,
+        results = [],
         option_name,
         real_options;
 
@@ -107,9 +131,10 @@ function lint(files, default_config_file, config_file) {
             }
         }
     }
-
-    error_prefix = real_options.error_prefix;
-    error_suffix = real_options.error_suffix;
+    
+    if (typeof reporter_file !== 'undefined') {
+        eval(fs.readFileSync(reporter_file));
+    }
 
     files.forEach(function (file) {
 
@@ -133,13 +158,7 @@ function lint(files, default_config_file, config_file) {
             for (i = 0; i < JSLINT.errors.length; i += 1) {
                 error = JSLINT.errors[i];
                 if (error) {
-                    sys.error(
-                        error_prefix + file + ', line ' + error.line +
-                        ', character ' + error.character + error_suffix +
-                        error.reason + '\n' +
-                        (error.evidence || '').replace(error_regexp, "$1") +
-                        "\n"
-                    );
+                    results.push({file: file, error: error});
                 }
             }
             retval = 2;
@@ -147,9 +166,8 @@ function lint(files, default_config_file, config_file) {
         }
 
     });
-
+    reporter(results);
     return retval;
-
 }
 
 // -----------------------------------------------------------------------------
@@ -170,12 +188,16 @@ if (module.id === '.') {
         } else if (config_param_found) {
             config_file = param;
             config_param_found = false;
+        } else if (param === '--reporter') {
+            reporter_param_found = true;
+        } else if (reporter_param_found) {
+            reporter_file = param;
+            reporter_param_found = false;
         } else if ((param === '--help') || (param === '-h')) {
         } else {
             files.push(param);
         }
     });
 
-    process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file));
-
+    process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file, reporter_file));
 }
