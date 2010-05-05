@@ -104,7 +104,8 @@
       sys.puts(
           "Usage: nodelint.js file.js [file2 file3 ...] [options]\n" +
           "Options:\n\n" +
-          "  --config FILE  the path to a config.js file with JSLINT options"
+          "  --config FILE  the path to a config.js file with JSLINT options\n" +
+          "  --reporter FILE  optional path to a reporter file to customize the output"
         );
       return 1;
     }
