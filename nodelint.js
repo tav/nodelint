@@ -86,7 +86,7 @@
   SCRIPT_DIRECTORY = dirname(fs.realpathSync(__filename));
   DEFAULT_CONFIG_FILE = join_posix_path(SCRIPT_DIRECTORY, 'config.js');
 
-  eval(fs.readFileSync(join_posix_path(SCRIPT_DIRECTORY, 'jslint/jslint.js')));
+  eval(fs.readFileSync(join_posix_path(SCRIPT_DIRECTORY, 'jslint/jslint.js'), 'utf8'));
   
 // -----------------------------------------------------------------------------
 // skript main funktion
@@ -110,7 +110,7 @@
       return 1;
     }
     
-    eval(fs.readFileSync(default_config_file));
+    eval(fs.readFileSync(default_config_file, 'utf8'));
     
     if (typeof options === 'undefined') {
       sys.puts("Error: there's no `options` variable in the default config file.");
@@ -120,7 +120,7 @@
     real_options = options;
     
     if (typeof config_file !== 'undefined') {
-      eval(fs.readFileSync(config_file));
+      eval(fs.readFileSync(config_file, 'utf8'));
 
       if (typeof options === 'undefined') {
         sys.puts("Error: there's no `options` variable in the config file.");
@@ -135,7 +135,7 @@
     }
     
     if (typeof reporter_file !== 'undefined') {
-      eval(fs.readFileSync(reporter_file));
+      eval(fs.readFileSync(reporter_file, 'utf8'));
     }
     
     error_prefix = real_options.error_prefix;
@@ -147,7 +147,7 @@
           error;
 
       try {
-        source = fs.readFileSync(file);
+        source = fs.readFileSync(file, 'utf8');
       } catch (err) {
         sys.puts("Error: Opening file <" + file + ">");
         sys.puts(err + '\n');
