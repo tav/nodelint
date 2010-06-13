@@ -91,6 +91,8 @@ credits
 
 - [Corey Hart], updated nodelint with multiple files and config support.
 
+- [Mamading Ceesay][evangineer], added support for using nodelint within Emacs.
+
 - [Matt Ranney][mranney], updated nodelint to use sys.error.
 
 [tav]: http://tav.espians.com
@@ -100,6 +102,7 @@ credits
 [Sannis]: http://github.com/Sannis
 [mkitt]: http://github.com/mkitt
 [Corey Hart]: http://www.codenothing.com
+[evangineer]: http://github.com/evangineer
 [mranney]: http://github.com/mranney
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
