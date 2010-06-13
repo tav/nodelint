@@ -71,7 +71,7 @@
     for (i = 0; i < len; i += 1) {
       error = results[i].error;
       str += error_prefix + results[i].file  + ', line ' + error.line +
-             ', character ' + error.character + ', ' + error_suffix +
+             ', character ' + error.character + error_suffix +
               error.reason + '\n' +
               (error.evidence || '').replace(error_regexp, "$1") + '\n';
     }
