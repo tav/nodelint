@@ -18,7 +18,7 @@ usage
 
 You can use `nodelint.js` directly if you have `node` in your $PATH:
 
-    $ nodelint.js path/to/your/file.js
+    $ ./nodelint.js path/to/your/file.js
 
 Otherwise, you need to run it with node:
 
@@ -81,17 +81,25 @@ credits
 
 - [Douglas Crockford], wrote the original JSLint and rhino.js runner
 
-- [Nathan Landis][my8bird], updated nodelint.js to Node's new API.
+- [Nathan Landis][my8bird], updated nodelint to Node's new API.
 
-- [Oleg Efimov][Sannis], updated nodelint.js to be run from a symlink.
+- [Oleg Efimov][Sannis], added support for overridable configurations, running
+  nodelint from a symlink and updates to reflect Node.js API changes.
 
-- [Corey Hart], updated nodelint.js with multiple files and config support.
+- [Matthew Kitt][mkitt], added support for configurable reporters, various code
+  cleanups and improvements including updates to reflect Node.js API changes.
+
+- [Corey Hart], updated nodelint with multiple files and config support.
+
+- [Matt Ranney][mranney], updated nodelint to use sys.error.
 
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
 [my8bird]: http://github.com/my8bird
 [Sannis]: http://github.com/Sannis
+[mkitt]: http://github.com/mkitt
 [Corey Hart]: http://www.codenothing.com
+[mranney]: http://github.com/mranney
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
