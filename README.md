@@ -65,6 +65,30 @@ Then the final options used will be:
 Take a look at [JSLint's Options] to see what to put in the `options` variable.
 
 
+reporters
+------
+
+By default nodelint.js uses an internal `reporter` function to output it's results to the console. For basic use it's possible to alter the `error_prefix` and `error_suffix` colors within your `config.js` file. This will prepend or append coloring information to the results when JSLint complains about your code. There may be times when a more customizable reporting system might be needed (*i.e. IDE/Text Editor integrations or customized console outputs*). 
+
+nodelint.js allows you to designate a custom reporter for outputting the results from JSLint's run. This `reporter` function will override the default function built into nodelint.js. To utilize a custom reporter first create a js file that has a function in it named `reporter`:
+
+`example-reporter.js`:
+
+    var sys = require('sys');
+
+    function reporter(results) {
+        var len = results.length;
+        sys.puts(len + ' error' + ((len === 1) ? '' : 's'));
+    }
+
+Then when you run nodelint.js from the command line, pass in the customized reporter:
+
+`$ ./nodelint.js path/to/file.js --reporter path/to/file/example-reporter.js`
+
+For brevity sake, this is a fairly simple reporter. For more elaborate examples see the `examples/reporters` directory or `examples/textmate/Support/bin/nodelint/`.
+
+Please see the [wiki][wiki] for integrating into various editors.
+
 contribute
 ----------
 
@@ -106,3 +130,4 @@ credits
 [mranney]: http://github.com/mranney
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
+[wiki]: http://wiki.github.com/tav/nodelint.js/
