@@ -8,9 +8,12 @@ nodelint.js
 
 - **nodelint.js** lets you run JSLint from the command line.
 
+- nodelint.js currently supports node version 0.1.99
+
 [Node]: http://nodejs.org/
 [V8]: http://code.google.com/p/v8/
 [JSLint]: http://www.jslint.com/lint.html
+
 
 
 usage
