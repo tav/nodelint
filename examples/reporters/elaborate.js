@@ -1,6 +1,6 @@
 // example usage:
 //
-//     $ ./nodelint.js path/to/file.js --reporter reporters/elaborate.js
+//     $ ./nodelint.js path/to/file.js --reporter examples/reporters/elaborate.js
 
 var sys = require('sys');
 
