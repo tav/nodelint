@@ -1,0 +1,8 @@
+{
+  "name": "nodelint.js",
+  "description": "Run JSLint from the command line under Node.js",
+  "version": "0.0.1",
+  "author": "tav <tav@espians.com>",
+  "directories": { "lib": "./lib" },
+  "bin": { "nodelint.js": "./nodelint.js" }
+}
