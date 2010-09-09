@@ -177,31 +177,29 @@
 // -----------------------------------------------------------------------------
 // run the file as a script if called directly, i.e. not imported via require()
 // -----------------------------------------------------------------------------
-  
-  if (module.id === '.') {  
-    params = process.ARGV.splice(2);
-    files = [];
-    
-    // a very basic pseudo --options parser
-    params.forEach(function (param) {
-      if (param.slice(0, 9) === "--config=") {
-        config_file = param.slice(9);
-      } else if (param === '--config') {
-        config_param_found = true;
-      } else if (config_param_found) {
-        config_file = param;
-        config_param_found = false;
-      } else if (param === '--reporter') {
-        reporter_param_found = true;
-      } else if (reporter_param_found) {
-        reporter_file = param;
-        reporter_param_found = false;
-      } else if ((param === '--help') || (param === '-h')) {
-      } else {
-        files.push(param);
-      }
-    });
-  }
+
+  params = process.ARGV.splice(2);
+  files = [];
+   
+  // a very basic pseudo --options parser
+  params.forEach(function (param) {
+    if (param.slice(0, 9) === "--config=") {
+      config_file = param.slice(9);
+    } else if (param === '--config') {
+      config_param_found = true;
+    } else if (config_param_found) {
+      config_file = param;
+      config_param_found = false;
+    } else if (param === '--reporter') {
+      reporter_param_found = true;
+    } else if (reporter_param_found) {
+      reporter_file = param;
+      reporter_param_found = false;
+    } else if ((param === '--help') || (param === '-h')) {
+    } else {
+      files.push(param);
+    }
+  });
   
   process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file, reporter_file));
   
