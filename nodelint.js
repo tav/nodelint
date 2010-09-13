@@ -16,6 +16,7 @@
 
 (function () {
   var fs = require('fs'),
+      path = require('path'),
       sys = require('sys'),
       SCRIPT_DIRECTORY,
       DEFAULT_CONFIG_FILE,
@@ -25,37 +26,6 @@
       config_param_found,
       reporter_file,
       reporter_param_found;
-
-// -----------------------------------------------------------------------------
-// file manipulation utility funktions
-// -----------------------------------------------------------------------------
-      
-  function join_posix_path(p1, p2) {
-    var path = p1;
-    if (p2.charAt(0) === "/") {
-      path = p2;
-    } else if (path === "" || path.charAt(path.length - 1) === "/") {
-      path += p2;
-    } else {
-      path += "/" + p2;
-    }
-    return path;
-  }
-  
-  function split_posix_path(path) {
-    var i = path.lastIndexOf('/') + 1,
-        head = path.slice(0, i),
-        tail = path.slice(i);
-        
-    if (head && head !== ('/' * head.length)) {
-      head = head.replace(/\/*$/g, "");
-    }
-    return [head, tail];
-  }
-  
-  function dirname(path) {
-    return split_posix_path(path)[0];
-  }
 
 // -----------------------------------------------------------------------------
 // default reporter for printing to a console
@@ -83,10 +53,10 @@
 // load jslint itself and set the path to the default config file
 // -----------------------------------------------------------------------------
   
-  SCRIPT_DIRECTORY = dirname(fs.realpathSync(__filename));
-  DEFAULT_CONFIG_FILE = join_posix_path(SCRIPT_DIRECTORY, 'config.js');
+  SCRIPT_DIRECTORY = path.dirname(__filename);
+  DEFAULT_CONFIG_FILE = path.join(SCRIPT_DIRECTORY, 'config.js');
 
-  eval(fs.readFileSync(join_posix_path(SCRIPT_DIRECTORY, 'jslint/jslint.js'), 'utf8'));
+  eval(fs.readFileSync(path.join(SCRIPT_DIRECTORY, 'jslint/jslint.js'), 'utf8'));
   
 // -----------------------------------------------------------------------------
 // skript main funktion
@@ -177,31 +147,29 @@
 // -----------------------------------------------------------------------------
 // run the file as a script if called directly, i.e. not imported via require()
 // -----------------------------------------------------------------------------
-  
-  if (module.id === '.') {  
-    params = process.ARGV.splice(2);
-    files = [];
-    
-    // a very basic pseudo --options parser
-    params.forEach(function (param) {
-      if (param.slice(0, 9) === "--config=") {
-        config_file = param.slice(9);
-      } else if (param === '--config') {
-        config_param_found = true;
-      } else if (config_param_found) {
-        config_file = param;
-        config_param_found = false;
-      } else if (param === '--reporter') {
-        reporter_param_found = true;
-      } else if (reporter_param_found) {
-        reporter_file = param;
-        reporter_param_found = false;
-      } else if ((param === '--help') || (param === '-h')) {
-      } else {
-        files.push(param);
-      }
-    });
-  }
+
+  params = process.ARGV.splice(2);
+  files = [];
+   
+  // a very basic pseudo --options parser
+  params.forEach(function (param) {
+    if (param.slice(0, 9) === "--config=") {
+      config_file = param.slice(9);
+    } else if (param === '--config') {
+      config_param_found = true;
+    } else if (config_param_found) {
+      config_file = param;
+      config_param_found = false;
+    } else if (param === '--reporter') {
+      reporter_param_found = true;
+    } else if (reporter_param_found) {
+      reporter_file = param;
+      reporter_param_found = false;
+    } else if ((param === '--help') || (param === '-h')) {
+    } else {
+      files.push(param);
+    }
+  });
   
   process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file, reporter_file));
   
