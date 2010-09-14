@@ -10,13 +10,14 @@ var path = require('path'),
 
 function reporter(results) {
     function escape(str) {
-	      return (str) ? str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') : '';
+        return (str) ? str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') : '';
     }
 
-    var dir = process.cwd();
-    var xml = '<?xml version="1.0" encoding="UTF-8" ?>\n<jslint>\n';
-    for (var i = 0, len = results.length; i < len; i += 1) {
-        var file = path.join(dir, results[i].file);
+    var i, error, len, file,
+        dir = process.cwd(),
+        xml = '<?xml version="1.0" encoding="UTF-8" ?>\n<jslint>\n';
+    for (i = 0, len = results.length; i < len; i += 1) {
+        file = path.join(dir, results[i].file);
         error = results[i].error;
         xml += '\t<file name="' + file + '">\n' +
                 '\t\t<issue char="' + error.character + '" evidence="' + escape(error.evidence || '') +
