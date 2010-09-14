@@ -15,6 +15,13 @@ nodelint.js
 [JSLint]: http://www.jslint.com/lint.html
 
 
+installation
+------------
+
+npm:
+
+    $ npm install nodelint.js
+
 
 usage
 -----
@@ -22,6 +29,10 @@ usage
 You can use `nodelint.js` directly if you have `node` in your $PATH:
 
     $ ./nodelint.js path/to/your/file.js
+
+Or if you installed it using npm:
+
+    $ nodelint.js path/to/your/file.js
 
 Otherwise, you need to run it with node:
 
@@ -122,6 +133,8 @@ credits
 
 - [Matt Ranney][mranney], updated nodelint to use sys.error.
 
+- [Cliffano Subagio], added npm installation support and XML reporter.
+
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
@@ -131,6 +144,7 @@ credits
 [Corey Hart]: http://www.codenothing.com
 [evangineer]: http://github.com/evangineer
 [mranney]: http://github.com/mranney
+[Cliffano Subagio]: http://blog.cliffano.com
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
 [wiki]: http://wiki.github.com/tav/nodelint.js/
