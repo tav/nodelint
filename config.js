@@ -38,8 +38,7 @@ var options = {
     sub        : false, // if all forms of subscript notation are tolerated
     white      : true,  // if strict whitespace rules apply
     widget     : false, // if the Yahoo Widgets globals should be predefined
-
-    // indent  : 2,     // set the expected indentation level
+    indent  : 2,        // set the expected indentation level
 
     // the names of predefined global variables:
     // the following are defined by nodejs itself
@@ -48,4 +47,4 @@ var options = {
     // customise the error reporting -- the following colours the text red
     error_prefix: "\u001b[1m",
     error_suffix: ":\u001b[0m "
-};
+  };
