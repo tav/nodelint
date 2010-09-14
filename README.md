@@ -15,6 +15,13 @@ nodelint.js
 [JSLint]: http://www.jslint.com/lint.html
 
 
+installation
+------------
+
+npm:
+
+    $ npm install nodelint.js
+
 
 usage
 -----
@@ -22,6 +29,10 @@ usage
 You can use `nodelint.js` directly if you have `node` in your $PATH:
 
     $ ./nodelint.js path/to/your/file.js
+
+Or if you installed it using npm:
+
+    $ nodelint.js path/to/your/file.js
 
 Otherwise, you need to run it with node:
 
@@ -90,7 +101,12 @@ Then when you run nodelint.js from the command line, pass in the customized repo
 
 For brevity sake, this is a fairly simple reporter. For more elaborate examples see the `examples/reporters/` directory or `examples/textmate/`.
 
+There is a sample reporter `examples\reporters\xml.js` that produces an XML report, which can then be integrated to a Continuous Integration server like [Hudson] using [Violations Plugin].
+
 Please see the [wiki][wiki] for integrating into various editors.
+
+[Hudson]: http://hudson-ci.org
+[Violations Plugin]: http://wiki.hudson-ci.org/display/HUDSON/Violations
 
 contribute
 ----------
@@ -122,6 +138,8 @@ credits
 
 - [Matt Ranney][mranney], updated nodelint to use sys.error.
 
+- [Cliffano Subagio], added npm installation support and XML reporter.
+
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
@@ -131,6 +149,7 @@ credits
 [Corey Hart]: http://www.codenothing.com
 [evangineer]: http://github.com/evangineer
 [mranney]: http://github.com/mranney
+[Cliffano Subagio]: http://blog.cliffano.com
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
 [wiki]: http://wiki.github.com/tav/nodelint.js/
