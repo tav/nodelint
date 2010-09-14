@@ -101,7 +101,12 @@ Then when you run nodelint.js from the command line, pass in the customized repo
 
 For brevity sake, this is a fairly simple reporter. For more elaborate examples see the `examples/reporters/` directory or `examples/textmate/`.
 
+There is a sample reporter `examples\reporters\xml.js` that produces an XML report, which can then be integrated to a Continuous Integration server like [Hudson] using [Violations Plugin].
+
 Please see the [wiki][wiki] for integrating into various editors.
+
+[Hudson]: http://hudson-ci.org
+[Violations Plugin]: http://wiki.hudson-ci.org/display/HUDSON/Violations
 
 contribute
 ----------
