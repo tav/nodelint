@@ -9,7 +9,6 @@
 // set your options here
 
 var options = {
-
     adsafe     : false, // if ADsafe should be enforced
     bitwise    : true,  // if bitwise operators should not be allowed
     browser    : false, // if the standard browser globals should be predefined
@@ -18,6 +17,7 @@ var options = {
     debug      : false, // if debugger statements should be allowed
     devel      : false, // if logging should be allowed (console, alert, etc.)
     eqeqeq     : true,  // if === should be required
+    es5        : true,  // if ES5 syntax should be allowed
     evil       : false, // if eval should be allowed
     forin      : false, // if for in statements must filter
     fragment   : false, // if HTML fragments should be allowed
@@ -33,7 +33,7 @@ var options = {
     rhino      : false, // if the Rhino environment globals should be predefined
     undef      : true,  // if variables should be declared before used
     safe       : false, // if use of some browser features should be restricted
-    sidebar    : false, // if the System object should be predefined
+    windows    : false, // if MS Windows-specigic globals should be predefined
     strict     : false, // require the "use strict"; pragma
     sub        : false, // if all forms of subscript notation are tolerated
     white      : true,  // if strict whitespace rules apply
