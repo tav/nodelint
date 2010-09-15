@@ -50,7 +50,7 @@
 // load jslint itself and set the path to the default config file
 // -----------------------------------------------------------------------------
   
-  SCRIPT_DIRECTORY = path.dirname(__filename);
+  SCRIPT_DIRECTORY = path.dirname(fs.realpathSync(__filename));
   DEFAULT_CONFIG_FILE = path.join(SCRIPT_DIRECTORY, 'config.js');
 
   eval(fs.readFileSync(path.join(SCRIPT_DIRECTORY, 'jslint/jslint.js'), 'utf8'));
