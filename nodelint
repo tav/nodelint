@@ -1,18 +1,15 @@
 #! /usr/bin/env node
 
 /*
- * This is a command line runner of jslint for Node.js
+ * nodelint -- a command line runner of jslint under node.js
  *
- * Changes released into the Public Domain by tav <tav@espians.com>
- * Support for config/multiple files added by Corey Hart <corey@codenothing.com>
- *
- * Adapted from rhino.js, Copyright (c) 2002 Douglas Crockford
- * Adapted from posixpath.py in the Python Standard Library.
+ * Released into the Public Domain by tav <tav@espians.com>
+ * See the README.md for full credits of the awesome contributors!
  *
  */
  
 /*global JSLINT, options */
-/*jslint evil: true, regexp: false, indent: 2 */
+/*jslint evil: true, regexp: false */
 
 (function () {
   var fs = require('fs'),
