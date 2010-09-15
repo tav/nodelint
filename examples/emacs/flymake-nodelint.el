@@ -1,7 +1,7 @@
-;; On-the-fly syntax checking of javascript using Nodelint to run JSLint
+;; On-the-fly syntax checking of javascript using nodelint to run JSLint.
 ;;
 ;; Changes to this file have been released into the Public Domain.
-;; adapted from http://www.emacswiki.org/emacs/FlymakeJavaScript
+;; Adapted from http://www.emacswiki.org/emacs/FlymakeJavaScript
 ;;
 ;; Installation:
 ;;
@@ -25,7 +25,7 @@
          (local-file (file-relative-name
                      temp-file
                      (file-name-directory buffer-file-name))))
-         (list "nodelint.js" (list local-file))))
+         (list "nodelint" (list local-file))))
 
 ;; needs debugging
 (setq flymake-allowed-file-name-masks

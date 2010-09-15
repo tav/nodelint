@@ -5,7 +5,7 @@
  * If there are no errors, nothing will happen.
  *
  * The Command:
- * node "/path/to/nodelint.js/nodelint.js" "$TM_FILEPATH" --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/summary_reporter.js"
+ * node "/path/to/nodelint/nodelint" "$TM_FILEPATH" --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/summary_reporter.js"
  *
  * Invoked by "⌘S"
  * @author Matthew Kitt

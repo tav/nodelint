@@ -1,6 +1,6 @@
 // example usage:
 //
-//     $ ./nodelint.js path/to/file.js --reporter examples/reporters/xml.js
+//     $ nodelint path/to/file.js --reporter examples/reporters/xml.js
 //
 // this reporter produces jslint xml that can be automatically recognised by
 // Hudson Violations Plugin http://wiki.hudson-ci.org/display/HUDSON/Violations+Plugin

@@ -4,7 +4,7 @@
  * The Command:
  * . "$TM_SUPPORT_PATH/lib/webpreview.sh"
  * html_header "JSLint Results"
- * node "/path/to/nodelint.js/nodelint.js" "$TM_FILEPATH" --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/full_reporter.js"
+ * node "/path/to/nodelint/nodelint" "$TM_FILEPATH" --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/full_reporter.js"
  *
  * Invoked by "⌃⇧V"
  * @author Matthew Kitt

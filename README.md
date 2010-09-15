@@ -1,14 +1,14 @@
-nodelint.js
------------
+nodelint
+--------
 
 - [Node] is a [V8] based framework for writing Javascript applications outside
   the browser.
 
 - [JSLint] is a code quality tool that checks for problems in Javascript programs.
 
-- **nodelint.js** lets you run JSLint from the command line.
+- **nodelint** lets you run JSLint from the command line.
 
-- nodelint.js currently supports node version 0.1.103
+- nodelint currently supports node version 0.1.103
 
 [Node]: http://nodejs.org/
 [V8]: http://code.google.com/p/v8/
@@ -20,23 +20,23 @@ installation
 
 npm:
 
-    $ npm install nodelint.js
+    $ npm install nodelint
 
 
 usage
 -----
 
-You can use `nodelint.js` directly if you have `node` in your $PATH:
+You can use `nodelint` directly if you have `node` in your $PATH:
 
-    $ ./nodelint.js path/to/your/file.js
+    $ ./nodelint path/to/your/file.js
 
 Or if you installed it using npm:
 
-    $ nodelint.js path/to/your/file.js
+    $ nodelint path/to/your/file.js
 
 Otherwise, you need to run it with node:
 
-    $ node nodelint.js path/to/your/file.js
+    $ node nodelint path/to/your/file.js
 
 Enjoy!
 
@@ -48,7 +48,7 @@ You can set JSLint options by modifying the default `config.js` file or even
 override the default config by passing another config file with the optional
 `--config` parameter, e.g.
 
-    $ nodelint.js file1 file2 --config path/to/your/config/file.js
+    $ nodelint file1 file2 --config path/to/your/config/file.js
 
 For example, if the default config.js has:
 
@@ -82,9 +82,17 @@ Take a look at [JSLint's Options] to see what to put in the `options` variable.
 reporters
 ---------
 
-By default nodelint.js uses an internal `reporter` function to output it's results to the console. For basic use it's possible to alter the `error_prefix` and `error_suffix` colors within your `config.js` file. This will prepend or append coloring information to the results when JSLint complains about your code. There may be times when a more customizable reporting system might be needed (*i.e. IDE/Text Editor integrations or customized console outputs*). 
+By default nodelint uses an internal `reporter` function to output it's results
+to the console. For basic use it's possible to alter the `error_prefix` and
+`error_suffix` colors within your `config.js` file. This will prepend or append
+coloring information to the results when JSLint complains about your code. There
+may be times when a more customizable reporting system might be needed (*i.e.
+IDE/Text Editor integrations or customized console outputs*).
 
-nodelint.js allows you to designate a custom reporter for outputting the results from JSLint's run. This `reporter` function will override the default function built into nodelint.js. To utilize a custom reporter first create a js file that has a function in it named `reporter`:
+nodelint allows you to designate a custom reporter for outputting the results
+from JSLint's run. This `reporter` function will override the default function
+built into nodelint. To utilize a custom reporter first create a js file that
+has a function in it named `reporter`:
 
 `example-reporter.js`:
 
@@ -95,15 +103,19 @@ nodelint.js allows you to designate a custom reporter for outputting the results
         sys.puts(len + ' error' + ((len === 1) ? '' : 's'));
     }
 
-Then when you run nodelint.js from the command line, pass in the customized reporter:
+Then when you run nodelint from the command line, pass in the customized
+reporter:
 
-`$ ./nodelint.js path/to/file.js --reporter path/to/file/example-reporter.js`
+`$ ./nodelint path/to/file.js --reporter path/to/file/example-reporter.js`
 
-For brevity sake, this is a fairly simple reporter. For more elaborate examples see the `examples/reporters/` directory or `examples/textmate/`.
+For brevity sake, this is a fairly simple reporter. For more elaborate examples
+see the `examples/reporters/` directory or `examples/textmate/`.
 
-There is a sample reporter `examples\reporters\xml.js` that produces an XML report, which can then be integrated to a Continuous Integration server like [Hudson] using [Violations Plugin].
+The sample XML reporter `examples\reporters\xml.js` produces reports which can
+also be integrated with a Continuous Integration server like [Hudson] using the
+[Violations Plugin].
 
-Please see the [wiki][wiki] for integrating into various editors.
+Please see the [wiki][wiki] for integration with various editors.
 
 [Hudson]: http://hudson-ci.org
 [Violations Plugin]: http://wiki.hudson-ci.org/display/HUDSON/Violations
@@ -118,7 +130,7 @@ pull request to me <<http://github.com/tav>>. Thanks!
 credits
 -------
 
-- [tav], wrote nodelint.js
+- [tav], wrote nodelint
 
 - [Felix Geisendörfer][felixge], clarified Node.js specific details
 
@@ -152,4 +164,4 @@ credits
 [Cliffano Subagio]: http://blog.cliffano.com
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
-[wiki]: http://wiki.github.com/tav/nodelint.js/
+[wiki]: http://wiki.github.com/tav/nodelint/
