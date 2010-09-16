@@ -9,5 +9,5 @@ more information see the [wiki][wiki].
 If all this sounds like just too much work, feel free to download and install
 the [TM bundle][bundle]. It comes packaged with nodelint and all the fun.
 
-[wiki]: http://wiki.github.com/tav/nodelint/
-[bundle]: http://github.com/mkitt/javascript-nodelint.tmbundle
+[wiki]: http://github.com/tav/nodelint/wiki
+[bundle]: http://github.com/mkitt/nodelint.tmbundle

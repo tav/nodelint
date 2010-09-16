@@ -164,4 +164,4 @@ credits
 [Cliffano Subagio]: http://blog.cliffano.com
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
-[wiki]: http://wiki.github.com/tav/nodelint/
+[wiki]: http://github.com/tav/nodelint/wiki
