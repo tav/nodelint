@@ -8,7 +8,7 @@ nodelint
 
 - **nodelint** lets you run JSLint from the command line.
 
-- nodelint currently supports node version 0.1.103
+- nodelint currently supports node version 0.2.1
 
 [Node]: http://nodejs.org/
 [V8]: http://code.google.com/p/v8/
