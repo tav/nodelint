@@ -42,7 +42,7 @@ var options = {
 
     // the names of predefined global variables:
     // the following are defined by nodejs itself
-    predef     : ['exports', 'module', 'require', 'process', '__filename', '__dirname', 'GLOBAL'],
+    predef     : ['exports', 'module', 'require', 'process', '__filename', '__dirname', 'global'],
 
     // customise the error reporting -- the following colours the text red
     error_prefix: "\u001b[1m",
