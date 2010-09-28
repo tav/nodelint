@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+/* vim:set ft=javascript ts=8 sw=4 tw=0 : */
 
 /*
  * nodelint -- a command line runner of jslint under node.js
