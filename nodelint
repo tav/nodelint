@@ -141,6 +141,25 @@
     reporter(results, error_prefix, error_suffix);
     return retval; 
   }
+
+  // based on mikeal/node-utils' walkSync
+  function walkDir(base, callback) {
+    var filenames = fs.readdirSync(base),
+      coll = filenames.reduce(function (acc, name) {
+      var abspath = path.join(base, name);
+      if (fs.statSync(abspath).isDirectory()) {
+        acc.dirs.push(name);
+      } else {
+        acc.names.push(name);
+      }
+      return acc;
+    }, {"names": [], "dirs": []});
+    callback(base, coll.dirs, coll.names);
+    coll.dirs.forEach(function (d) {
+      var abspath = path.join(base, d);
+      walkDir(abspath, callback);
+    });
+  }
   
 // -----------------------------------------------------------------------------
 // run the file as a script if called directly, i.e. not imported via require()
@@ -165,7 +184,18 @@
       reporter_param_found = false;
     } else if ((param === '--help') || (param === '-h')) {
     } else {
-      files.push(param);
+      var stat = fs.statSync(param);
+      if (stat.isDirectory()) {
+        walkDir(param, function (base, dirs, names) {
+          for (var i = 0, ln = names.length; i < ln; i += 1) {
+            if (names[i].match(/.js$/)) {
+              files.push(path.join(base, names[i]));
+            }
+          }
+        });
+      } else {
+        files.push(param);
+      }
     }
   });
   

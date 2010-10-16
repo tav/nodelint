@@ -38,6 +38,10 @@ Otherwise, you need to run it with node:
 
     $ node nodelint path/to/your/file.js
 
+You can also specify a directory param and nodelint will find all .js files under that directory and its subdirectories:
+
+    $ node nodelint dir1/ dir2/
+
 Enjoy!
 
 
@@ -48,7 +52,7 @@ You can set JSLint options by modifying the default `config.js` file or even
 override the default config by passing another config file with the optional
 `--config` parameter, e.g.
 
-    $ nodelint file1 file2 --config path/to/your/config/file.js
+    $ nodelint file1 file2 dir1 dir2 --config path/to/your/config/file.js
 
 For example, if the default config.js has:
 
@@ -150,7 +154,7 @@ credits
 
 - [Matt Ranney][mranney], updated nodelint to use sys.error.
 
-- [Cliffano Subagio], added npm installation support and XML reporter.
+- [Cliffano Subagio], added npm installation support, XML reporter, and directory param support.
 
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
