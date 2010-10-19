@@ -4,78 +4,91 @@
 .TH "NODELINT" "1" "October 2010" "" ""
 .
 .SH "NAME"
-\fBnodelint\fR \-\- Node JSLint runner
+\fBnodelint\fR \-\- Run JSLint from the command\-line under node\.js
 .
 .SH "SYNOPSIS"
 .
 .nf
-nodelint [options] <file\.js|dirname> [file2\.js] [other dir] \.\.\.
+nodelint [options] <file\-or\-directory> [<file\-or\-directory> \.\.\.]
 .
 .fi
 .
 .SH "DESCRIPTION"
-Nodelint is a simple comand line code quality tool for Node based on JSLint\.
+The nodelint command\-line tool allows you to check for problems and ensure
 .
 .br
-Node is a V8 based framework for writing Javascript applications outside the browser\.
+the code quality of your JavaScript files using JSLint\.
+.
+.P
+It is completely extensible so you can use your own custom JSLint config or
 .
 .br
-JSLint is a code quality tool that checks for problems in Javascript programs\.
+even use custom reporters that better integrate with your quality assurance
+.
+.br
+framework\.
 .
 .SH "OPTIONS"
   \fB\-\-reporter FILE\fR:
 .
 .br
-      You can set the test reporter to a custom module or on of the modules
-      in nodeunit/lib/reporters, when omitted, the default test runner is used\.
+      Override the default reporter with your own custom module\. See
+.
+.br
+      the \fIexamples/reporters\fR directory for custom reporters that come
+.
+.br
+      bundled with nodelint\.
 .
 .P
   \fB\-\-config FILE\fR:
 .
 .br
-      Load config options from a JSON file, allows the customisation
-      of color schemes for the default test reporter etc\.
-      See bin/nodeunit\.json for current available options\.
+      Override the default \fIconfig\.js\fR with your own config file\.
 .
 .P
   \fB\-h\fR, \fB\-\-help\fR:
 .
 .br
-      display this help and exit
+      Display the help and exit\.
 .
 .P
   \fB\-v\fR, \fB\-\-version\fR:
 .
 .br
-      output version information and exit
+      Output version information and exit\.
+.
+.P
+  \fB<file\-or\-directory>\fR:
+      You can run nodelint on specific files or on all \fI*\.js\fR files inside
+.
+.br
+      a directory\.
 .
 .SH "CONFIG"
-You can set JSLint options by modifying the default config\.js file
+You can customise the JSLint options by modifying the default config\.js
 .
 .br
-or even override the default config by passing another config file
-.
-.br
-with the optional \-\-config parameter, e\.g\.
+file or by providing your own config file with the \fI\-\-config\fR parameter:
 .
 .IP "" 4
 .
 .nf
-nodelint \-\-config path/to/your/config/file\.js file1\.js file2\.js \.\.\.
+nodelint \-\-config path/to/custom\.js file1\.js file2\.js \.\.\.
 .
 .fi
 .
 .IP "" 0
 .
 .P
-For example, if the default config\.js has:
+For example, if the default config\.js looks like:
 .
 .IP "" 4
 .
 .nf
 var options = {
     adsafe       : false,
-    bitwise      : True,
+    bitwise      : true,
     error_prefix : "\\u001b[1m",
     error_suffix : ":\\u001b[0m "
 };
@@ -85,7 +98,7 @@ var options = {
 .IP "" 0
 .
 .P
-And your own path/to/your/config/file\.js looks like:
+And your custom\.js looks like:
 .
 .IP "" 4
 .
@@ -100,7 +113,7 @@ var options = {
 .IP "" 0
 .
 .P
-Then the final options used will be:
+Then the final options will be:
 .
 .IP "" 4
 .
@@ -116,9 +129,6 @@ var options = {
 .fi
 .
 .IP "" 0
-.
-.P
-Nodelint config file contains options for JSLint and defines coloring for output\.
 .
 .SH "JSLINT OPTIONS"
 .
@@ -350,7 +360,7 @@ Contributors list: \fIhttp://github\.com/tav/nodelint/contributors\fR\|\.
 Report nodelint bugs to \fIhttp://github\.com/tav/nodelint/issues\fR\|\.
 .
 .SH "COPYRIGHT"
-Nodelint is licensed under a Public Domain license\.\.
+Nodelint has been released into the Public Domain by its Authors\.
 .
 .SH "SEE ALSO"
 node(1)

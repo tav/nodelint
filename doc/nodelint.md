@@ -1,58 +1,63 @@
-nodelint(1) -- Node JSLint runner
-=================================
+nodelint(1) -- Run JSLint from the command-line under node.js
+=============================================================
 
 ## SYNOPSIS
 
-    nodelint [options] <file.js|dirname> [file2.js] [other dir] ...
+    nodelint [options] <file-or-directory> [<file-or-directory> ...]
 
 ## DESCRIPTION
 
-Nodelint is a simple comand line code quality tool for Node based on JSLint.  
-Node is a V8 based framework for writing Javascript applications outside the browser.  
-JSLint is a code quality tool that checks for problems in Javascript programs.
+The nodelint command-line tool allows you to check for problems and ensure  
+the code quality of your JavaScript files using JSLint.
+
+It is completely extensible so you can use your own custom JSLint config or  
+even use custom reporters that better integrate with your quality assurance  
+framework.
 
 ## OPTIONS
 
   __--reporter FILE__:  
-      You can set the test reporter to a custom module or on of the modules
-      in nodeunit/lib/reporters, when omitted, the default test runner is used.
+      Override the default reporter with your own custom module. See  
+      the *examples/reporters* directory for custom reporters that come  
+      bundled with nodelint.
 
   __--config FILE__:  
-      Load config options from a JSON file, allows the customisation
-      of color schemes for the default test reporter etc.
-      See bin/nodeunit.json for current available options.
+      Override the default *config.js* with your own config file.
 
   __-h__, __--help__:  
-      display this help and exit
+      Display the help and exit.
 
   __-v__, __--version__:  
-      output version information and exit
+      Output version information and exit.
+
+  __<file-or-directory>__:
+      You can run nodelint on specific files or on all *\*.js* files inside  
+      a directory.
 
 ## CONFIG
 
-You can set JSLint options by modifying the default config.js file  
-or even override the default config by passing another config file  
-with the optional --config parameter, e.g.
+You can customise the JSLint options by modifying the default config.js  
+file or by providing your own config file with the *--config* parameter:
 
-    nodelint --config path/to/your/config/file.js file1.js file2.js ...
+    nodelint --config path/to/custom.js file1.js file2.js ...
 
-For example, if the default config.js has:
+For example, if the default config.js looks like:
 
     var options = {
         adsafe       : false,
-        bitwise      : True,
+        bitwise      : true,
         error_prefix : "\u001b[1m",
         error_suffix : ":\u001b[0m "
     };
 
-And your own path/to/your/config/file.js looks like:
+And your custom.js looks like:
 
     var options = {
         bitwise      : false,
         browser      : false
     };
 
-Then the final options used will be:
+Then the final options will be:
 
     var options = {
         adsafe       : false,
@@ -61,8 +66,6 @@ Then the final options used will be:
         error_prefix : "\u001b[1m",
         error_suffix : ":\u001b[0m "
     };
-
-Nodelint config file contains options for JSLint and defines coloring for output.
 
 ## JSLINT OPTIONS
 
@@ -151,7 +154,7 @@ Report nodelint bugs to <http://github.com/tav/nodelint/issues>.
 
 ## COPYRIGHT
 
-Nodelint is licensed under a Public Domain license..
+Nodelint has been released into the Public Domain by its Authors.
 
 ## SEE ALSO
 
