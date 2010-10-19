@@ -17,13 +17,14 @@
   "bin": {
     "nodelint": "./nodelint"
   },
+  "directories": { "doc": "./doc", "man": "./man1" },
   "repository": {
     "type": "git",
     "url": "http://github.com/tav/nodelint.git"
   },
-  "bugs" : { "web" : "http://github.com/tav/nodelint/issues" },
+  "bugs": { "web": "http://github.com/tav/nodelint/issues" },
   "licenses": {
     "type": "Public Domain"
   },
-  "engines" : { "node" : ">=0.2.1" }
+  "engines": { "node": ">=0.2.1" }
 }

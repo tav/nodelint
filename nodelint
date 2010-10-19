@@ -23,7 +23,13 @@
       config_file,
       config_param_found,
       reporter_file,
-      reporter_param_found;
+      reporter_param_found,
+      usage = "Usage: nodelint file.js [file2 file3 ...] [options]\n" +
+              "Options:\n\n" +
+              "  --config FILE     the path to a config.js file with JSLINT options\n" +
+              "  --reporter FILE   optional path to a reporter.js file to customize the output\n" +
+              "  -h, --help        display this help and exit\n" +
+              "  -v, --version     output version information and exit";
 
 // -----------------------------------------------------------------------------
 // default reporter for printing to a console
@@ -69,12 +75,7 @@
         real_options;
         
     if (!files.length) {
-      sys.puts(
-          "Usage: nodelint file.js [file2 file3 ...] [options]\n" +
-          "Options:\n\n" +
-          "  --config FILE  the path to a config.js file with JSLINT options\n" +
-          "  --reporter FILE  optional path to a reporter.js file to customize the output"
-        );
+      sys.puts(usage);
       return 1;
     }
     
@@ -182,7 +183,15 @@
     } else if (reporter_param_found) {
       reporter_file = param;
       reporter_param_found = false;
+    } else if ((param === '--version') || (param === '-v')) {
+      var content = fs.readFileSync(
+                         path.join(SCRIPT_DIRECTORY, 'package.json'), 'utf8');
+      var pkg = JSON.parse(content);
+      sys.puts(pkg.version);
+      process.exit(0);
     } else if ((param === '--help') || (param === '-h')) {
+        sys.puts(usage);
+        process.exit(0);
     } else {
       var stat = fs.statSync(param);
       if (stat.isDirectory()) {
