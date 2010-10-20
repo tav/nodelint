@@ -1,5 +1,5 @@
 // jslint.js
-// 2010-09-16
+// 2010-10-16
 
 /*
 Copyright (c) 2002 Douglas Crockford  (www.JSLint.com)
@@ -1125,7 +1125,7 @@ var JSLINT = (function () {
 
         function it(type, value) {
             var i, t;
-            if (type === '(color)') {
+            if (type === '(color)' || type === '(range)') {
                 t = {type: type};
             } else if (type === '(punctuator)' ||
                     (type === '(identifier)' && is_own(syntax, value))) {
@@ -1605,6 +1605,9 @@ var JSLINT = (function () {
                                             if (option.regexp) {
                                                 warningAt("Insecure '{a}'.",
                                                         line, from + l, c);
+                                            } else if (s.charAt(l) === ']') {
+                                                errorAt("Unescaped '{a}'.",
+                                                    line, from + l, '^');
                                             }
                                         }
                                         q = false;
@@ -2388,6 +2391,7 @@ loop:   for (;;) {
         }, 20);
     }
 
+
     function bitwise(s, f, p) {
         var x = symbol(s, p);
         reserveName(x);
@@ -2401,6 +2405,7 @@ loop:   for (;;) {
         };
         return x;
     }
+
 
     function bitwiseassignop(s) {
         symbol(s, 20).exps = true;
@@ -2470,6 +2475,7 @@ loop:   for (;;) {
                     nexttoken, nexttoken.value);
         }
     }
+
 
     function reachable(s) {
         var i = 0, t;
@@ -2680,6 +2686,9 @@ loop:   for (;;) {
         funct['(verb)'] = null;
         scope = s;
         inblock = b;
+        if (f && (!a || a.length === 0)) {
+            warning("Empty block.");
+        }
         return a;
     }
 
@@ -2709,6 +2718,7 @@ loop:   for (;;) {
         }
     }
 
+
 // CSS parsing.
 
 
@@ -2718,6 +2728,7 @@ loop:   for (;;) {
             return true;
         }
     }
+
 
     function cssNumber() {
         if (nexttoken.id === '-') {
@@ -2731,12 +2742,14 @@ loop:   for (;;) {
         }
     }
 
+
     function cssString() {
         if (nexttoken.type === '(string)') {
             advance();
             return true;
         }
     }
+
 
     function cssColor() {
         var i, number, value;
@@ -2796,6 +2809,7 @@ loop:   for (;;) {
         return false;
     }
 
+
     function cssLength() {
         if (nexttoken.id === '-') {
             advance('-');
@@ -2817,6 +2831,7 @@ loop:   for (;;) {
         return false;
     }
 
+
     function cssLineHeight() {
         if (nexttoken.id === '-') {
             advance('-');
@@ -2834,6 +2849,7 @@ loop:   for (;;) {
         return false;
     }
 
+
     function cssWidth() {
         if (nexttoken.identifier) {
             switch (nexttoken.value) {
@@ -2847,6 +2863,7 @@ loop:   for (;;) {
             return cssLength();
         }
     }
+
 
     function cssMargin() {
         if (nexttoken.identifier) {
@@ -2874,6 +2891,7 @@ loop:   for (;;) {
         return false;
     }
 
+
     function cssCommaList() {
         while (nexttoken.id !== ';') {
             if (!cssName() && !cssString()) {
@@ -2887,12 +2905,11 @@ loop:   for (;;) {
         }
     }
 
+
     function cssCounter() {
         if (nexttoken.identifier && nexttoken.value === 'counter') {
             advance();
             advance('(');
-            if (!nexttoken.identifier) {
-            }
             advance();
             if (nexttoken.id === ',') {
                 comma();
@@ -2954,6 +2971,7 @@ loop:   for (;;) {
         return false;
     }
 
+
     function cssUrl() {
         var c, url;
         if (nexttoken.identifier && nexttoken.value === 'url') {
@@ -2983,6 +3001,7 @@ loop:   for (;;) {
         return false;
     }
 
+
     cssAny = [cssUrl, function () {
         for (;;) {
             if (nexttoken.identifier) {
@@ -3007,6 +3026,7 @@ loop:   for (;;) {
             }
         }
     }];
+
 
     cssBorderStyle = [
         'none', 'hidden', 'dotted', 'dashed', 'solid', 'double', 'ridge',
@@ -3233,6 +3253,7 @@ loop:   for (;;) {
         }
     }
 
+
     function styleValue(v) {
         var i = 0,
             n,
@@ -3368,7 +3389,8 @@ loop:   for (;;) {
 
     function styleSelector() {
         if (nexttoken.identifier) {
-            if (!is_own(htmltag, nexttoken.value)) {
+            if (!is_own(htmltag, option.cap ?
+                    nexttoken.value.toLowerCase() : nexttoken.value)) {
                 warning("Expected a tagName, and instead saw {a}.",
                     nexttoken, nexttoken.value);
             }
@@ -3396,6 +3418,7 @@ loop:   for (;;) {
                 case 'first-of-type':
                 case 'focus':
                 case 'hover':
+                case 'last-child':
                 case 'last-of-type':
                 case 'link':
                 case 'only-of-type':
@@ -4426,7 +4449,7 @@ loop:   for (;;) {
     }, 160, true);
 
     infix('(', function (left, that) {
-        adjacent(prevtoken, token);
+        nobreak(prevtoken, token);
         nospace();
         if (option.immed && !left.immed && left.id === 'function') {
             warning("Wrap an immediate function invocation in parentheses " +
@@ -4515,6 +4538,7 @@ loop:   for (;;) {
     });
 
     infix('[', function (left, that) {
+        nobreak(prevtoken, token);
         nospace();
         var e = parse(0), s;
         if (e && e.type === '(string)') {
@@ -5428,12 +5452,12 @@ loop:   for (;;) {
                     if (token.id !== '@' || !nexttoken.identifier ||
                             nexttoken.value !== 'charset' || token.line !== 1 ||
                             token.from !== 1) {
-                        error('A css file should begin with @charset "UTF-8";');
+                        error("A css file should begin with @charset 'UTF-8';");
                     }
                     advance();
                     if (nexttoken.type !== '(string)' &&
                             nexttoken.value !== 'UTF-8') {
-                        error('A css file should begin with @charset "UTF-8";');
+                        error("A css file should begin with @charset 'UTF-8';");
                     }
                     advance();
                     advance(';');
@@ -5692,7 +5716,7 @@ loop:   for (;;) {
     };
     itself.jslint = itself;
 
-    itself.edition = '2010-09-16';
+    itself.edition = '2010-10-16';
 
     return itself;
 
