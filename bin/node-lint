@@ -1,0 +1,11 @@
+#!/usr/bin/sh
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"
+
+#Can be overriden by makefile
+LIB_PATH="$MY_PATH/../lib"
+
+#node
+NODE_BIN=`which node`
+
+#launch command
+$NODE_BIN $LIB_PATH/lint/launcher.js $@
