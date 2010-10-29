@@ -74,7 +74,7 @@ var ParserTest = vows.describe('Parser class').addBatch({
 			
 			topic.update(';');
 			assert.equal(topic.isValid(), true);
-		},
+		}
 	},
 	"getReport()" : {
 		topic : function (item) {
