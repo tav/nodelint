@@ -34,7 +34,7 @@ var FormatterTest = vows.describe('Formatter class').addBatch({
 				});
 			});
 		}
-	},
+	}
 });
 
 var BaseTest = vows.describe('Base class').addBatch({
