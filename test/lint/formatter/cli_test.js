@@ -13,9 +13,9 @@ function createReport() {
 		{
 			file : 'foo',
 			error: {
-				character: 'c',
+				line: 12,
+				character: 5,
 				evidence: 'e',
-				line: 'l',
 				reason: 'r'
 			}
 		}
@@ -36,7 +36,7 @@ var FormatterTest = vows.describe('Formatter class').addBatch({
 			return createFormatter({mode: 'normal'});
 		},
 		'should return ' : function (topic) {
-			assert.equal(topic.format(createReport()), 'foo: line l, character c r\ne\n1 error\n');
+			assert.equal(topic.format(createReport()), 'foo: line 12, character 5 r\ne\n1 error\n');
 		}
 	},
 	"format() / mode=full" : {
@@ -44,7 +44,7 @@ var FormatterTest = vows.describe('Formatter class').addBatch({
 			return createFormatter({mode: 'full'});
 		},
 		'should return ' : function (topic) {
-			assert.equal(topic.format(createReport()), 'foo: line l, character c, r\ne\n1 error\n');
+			assert.equal(topic.format(createReport()), 'foo: line 12, character 5, r\ne\n1 error\n');
 		}
 	}
 });

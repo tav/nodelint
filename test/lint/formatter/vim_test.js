@@ -1,6 +1,6 @@
 var vows = require('vows');
 var assert = require('assert');
-var formatter = require('../../../lib/lint/formatter/json');
+var formatter = require('../../../lib/lint/formatter/vim');
 
 function createFormatter(options) {
 	return new formatter.Formatter(options);
@@ -11,9 +11,9 @@ function createReport() {
 		{
 			file : 'foo',
 			error: {
-				character: 'c',
+				line: 12,
+				character: 5,
 				evidence: 'e',
-				line: 'l',
 				reason: 'r'
 			}
 		}
@@ -25,11 +25,11 @@ var FormatterTest = vows.describe('Formatter class').addBatch({
 		topic : function (item) {
 			return createFormatter();
 		},
-		'should return format empty data' : function (topic) {
-			assert.equal(topic.format([]), '[]');
+		'should format empty data' : function (topic) {
+			assert.equal(topic.format([]), '');
 		},
-		'should return format simple data' : function (topic) {
-			assert.equal(topic.format(createReport()), '[{"file":"foo","error":{"character":"c","evidence":"e","line":"l","reason":"r"}}]');
+		'should format simple data' : function (topic) {
+			assert.equal(topic.format(createReport()), 'foo line 12 column 5 Error: r e');
 		}
 	}
 });
