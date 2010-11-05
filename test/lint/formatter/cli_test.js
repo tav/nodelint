@@ -22,7 +22,7 @@ function createReport() {
             ];
 }
 
-var FormatterTest = vows.describe('Formatter class').addBatch({
+var FormatterTest = vows.describe('Cli Formatter class').addBatch({
     "format() / mode=simple" : {
     topic : function (item) {
     return createFormatter({mode: 'simple'});

@@ -20,7 +20,7 @@ function createReport() {
             ];
 }
 
-var FormatterTest = vows.describe('Formatter class').addBatch({
+var FormatterTest = vows.describe('JSON Formatter class').addBatch({
     "format()" : {
     topic : function (item) {
     return createFormatter();

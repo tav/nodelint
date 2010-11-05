@@ -20,7 +20,7 @@ function createReport() {
             ];
 }
 
-var FormatterTest = vows.describe('Formatter class').addBatch({
+var FormatterTest = vows.describe('XML Formatter class').addBatch({
     "format() / pretty=false" : {
         topic : function (item) {
             return createFormatter();
