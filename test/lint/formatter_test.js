@@ -30,7 +30,7 @@ var FormatterTest = vows.describe('Formatter class').addBatch({
         'should not throw error for types cli, json, etc' : function (topic) {
             ['cli', 'json', 'xml', 'textmate'].forEach(function (type) {
                 assert.doesNotThrow(function () {
-                    topic.format({});
+                    topic.format([]);
                 });
             });
         }
