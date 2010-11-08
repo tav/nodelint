@@ -1,3 +1,4 @@
+/*jslint indent:4 */
 var vows = require('vows');
 var assert = require('assert');
 var formatter = require('../../../lib/lint/formatter/xml');
@@ -74,7 +75,7 @@ var FormatterTest = vows.describe('XML Formatter class').addBatch({
             var expected = '<?xml version="1.0" encoding="UTF-8" ?>\n<jslint>\n  <file name="foo">\n    <issue line="12" char="5" evidence="e" reason="r" />\n  </file>\n</jslint>\n';
             assert.equal(topic.format(createReportInvalid()), expected);
         }
-        },
+    },
     "format() / pretty=true, eol='\n\r'" : {
         'topic' : function (item) {
             return createFormatter({pretty: true, eol: '\n\r'});

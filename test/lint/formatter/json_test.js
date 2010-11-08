@@ -1,3 +1,5 @@
+/*jslint indent:4 */
+
 var vows = require('vows');
 var assert = require('assert');
 var formatter = require('../../../lib/lint/formatter/json');
