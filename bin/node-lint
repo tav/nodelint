@@ -1,11 +1,15 @@
-#!/usr/bin/sh
-MY_PATH="`( cd \"$MY_PATH\" && pwd )`"
+#! /bin/sh
+
+__DIR__=`dirname $0`
+__DIR__=$(readlink -f "$__DIR__")
+__ROOT__=`dirname $__DIR__`
+
 
 #Can be overriden by makefile
-LIB_PATH="$MY_PATH/../lib"
+LIB_PATH=$__ROOT__/lib
 
 #node
 NODE_BIN=`which node`
 
 #launch command
-$NODE_BIN $LIB_PATH/lint/launcher.js $@
+$NODE_BIN "$LIB_PATH/lint/launcher.js" $@
