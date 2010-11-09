@@ -5,34 +5,37 @@
     "homepage": "http://github.com/tav/nodelint",
     "author": "tav <tav@espians.com> (http://tav.espians.com)",
     "contributors": [
-                     "Matthew Kitt <mk.kitt@gmail.com> (http://github.com/mkitt)",
-                     "Oleg Efimov <efimovov@gmail.com> (http://github.com/Sannis)",
-                     "Corey Hart <corey@codenothing.com> (http://www.codenothing.com)",
-                     "Cliffano Subagio <cliffano@gmail.com> (http://blog.cliffano.com)",
-                     "Mamading Ceesay <mamading@gmail.com> (http://github.com/evangineer)",
-                     "Matt Ranney <mjr@ranney.com> (http://github.com/mranney)",
-                     "Felix Geisendörfer (http://debuggable.com)",
-                     "Nathan Landis (http://github.com/my8bird)",
-                     "Julien Polo (http://github.com/as-jpolo)"
-                     ],
-                     "bin": {
-    "node-lint": "./bin/node-lint"
-},
-"directories": {
-    "doc": "./doc",
-    "man": "./man1"
-},
-"repository": {
-    "type": "git",
-    "url": "http://github.com/tav/nodelint.git"
-},
-"bugs": {
-    "web": "http://github.com/tav/nodelint/issues"
-},
-"licenses": {
-    "type": "Public Domain"
-},
-"engines": {
-    "node": ">=0.2.1"
-}
+         "Matthew Kitt <mk.kitt@gmail.com> (http://github.com/mkitt)",
+         "Oleg Efimov <efimovov@gmail.com> (http://github.com/Sannis)",
+         "Corey Hart <corey@codenothing.com> (http://www.codenothing.com)",
+         "Cliffano Subagio <cliffano@gmail.com> (http://blog.cliffano.com)",
+         "Mamading Ceesay <mamading@gmail.com> (http://github.com/evangineer)",
+         "Matt Ranney <mjr@ranney.com> (http://github.com/mranney)",
+         "Felix Geisendörfer (http://debuggable.com)",
+         "Nathan Landis (http://github.com/my8bird)",
+         "Julien Polo (http://github.com/as-jpolo)"
+    ],
+    "bin": {
+        "node-lint": "./bin/node-lint"
+    },
+    "directories": {
+        "doc": "./doc",
+        "man": "./man1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/tav/nodelint.git"
+    },
+    "bugs": {
+        "web": "http://github.com/tav/nodelint/issues"
+    },
+    "licenses": {
+        "type": "Public Domain"
+    },
+    "dependencies"  : {
+        "vows": "*"
+    },
+    "engines": {
+        "node": ">=0.2.1"
+    }
 }

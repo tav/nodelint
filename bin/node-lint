@@ -8,6 +8,9 @@ __ROOT__=`dirname $__DIR__`
 #Can be overriden by makefile
 LIB_PATH=$__ROOT__/lib
 
+#used by the launcher
+export NODELINT_CONFIG_FILE=$__ROOT__/etc/config.json
+
 #node
 NODE_BIN=`which node`
 
