@@ -2,6 +2,7 @@
 var vows = require('vows');
 var assert = require('assert');
 var formatter = require('../../lib/lint/formatter');
+var Report = require('../../lib/lint/formatter').Report;
 
 function createFormatter(options) {
     return new formatter.Formatter(options);
@@ -9,6 +10,12 @@ function createFormatter(options) {
 
 function createBase(options) {
     return new formatter.Base(options);
+}
+
+function createReportEmpty() {
+    var report;
+    report = new Report();
+    return report;
 }
 
 var FormatterTest = vows.describe('Formatter class').addBatch({
@@ -31,7 +38,7 @@ var FormatterTest = vows.describe('Formatter class').addBatch({
         'should not throw error for types cli, json, etc' : function (topic) {
             ['cli', 'json', 'xml', 'textmate'].forEach(function (type) {
                 assert.doesNotThrow(function () {
-                    topic.format([]);
+                    topic.format(createReportEmpty());
                 });
             });
         }

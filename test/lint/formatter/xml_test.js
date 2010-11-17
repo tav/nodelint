@@ -82,7 +82,7 @@ var FormatterTest = vows.describe('XML Formatter class').addBatch({
         },
         'should return format empty content' : function (topic) {
             var expected = '<?xml version="1.0" encoding="UTF-8" ?>\n\r<jslint>\n\r</jslint>\n\r';
-            assert.equal(topic.format([]), expected);
+            assert.equal(topic.format(createReportEmpty()), expected);
         },
         'should return pretty xml formatted content' : function (topic) {
             var expected = '<?xml version="1.0" encoding="UTF-8" ?>\n\r<jslint>\n\r\t<file name="foo">\n\r\t\t<issue line="12" char="5" evidence="e" reason="r" />\n\r\t</file>\n\r</jslint>\n\r';
