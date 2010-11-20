@@ -1,20 +1,20 @@
 .\" Generated with Ronnjs/v0.1
 .\" http://github.com/kapouer/ronnjs/
 .
-.TH "NODELINT" "1" "October 2010" "" ""
+.TH "NODE\-LINT" "1" "November 2010" "" ""
 .
 .SH "NAME"
-\fBnodelint\fR \-\- Run JSLint from the command\-line under node\.js
+\fBnode-lint\fR \-\- Run JSLint from the command\-line under node\.js
 .
 .SH "SYNOPSIS"
 .
 .nf
-nodelint [options] <file\-or\-directory> [<file\-or\-directory> \.\.\.]
+node\-lint [options] <file\-or\-directory> [<file\-or\-directory> \.\.\.]
 .
 .fi
 .
 .SH "DESCRIPTION"
-The nodelint command\-line tool allows you to check for problems and ensure
+The node\-lint command\-line tool allows you to check for problems and ensure
 .
 .br
 the code quality of your JavaScript files using JSLint\.
@@ -23,22 +23,22 @@ the code quality of your JavaScript files using JSLint\.
 It is completely extensible so you can use your own custom JSLint config or
 .
 .br
-even use custom reporters that better integrate with your quality assurance
+even use custom formatters that better integrate with your quality assurance
 .
 .br
 framework\.
 .
 .SH "OPTIONS"
-  \fB\-\-reporter FILE\fR:
+  \fB\-\-formatter FILE\fR:
 .
 .br
-      Override the default reporter with your own custom module\. See
+      Override the default formatter with your own custom module\. See
 .
 .br
-      the \fIexamples/reporters\fR directory for custom reporters that come
+      the \fIexamples/\fR directory for custom formatters that come
 .
 .br
-      bundled with nodelint\.
+      bundled with node\-lint\.
 .
 .P
   \fB\-\-config FILE\fR:
@@ -60,13 +60,13 @@ framework\.
 .
 .P
   \fB<file\-or\-directory>\fR:
-      You can run nodelint on specific files or on all \fI*\.js\fR files inside
+      You can run node\-lint on specific files or on all \fI*\.js\fR files inside
 .
 .br
       a directory\.
 .
 .SH "CONFIG"
-You can customise the JSLint options by modifying the default config\.js
+You can customize the JSLint options by modifying the default config\.js
 .
 .br
 file or by providing your own config file with the \fI\-\-config\fR parameter:
@@ -74,23 +74,23 @@ file or by providing your own config file with the \fI\-\-config\fR parameter:
 .IP "" 4
 .
 .nf
-nodelint \-\-config path/to/custom\.js file1\.js file2\.js \.\.\.
+node\-lint \-\-config path/to/custom\.json file1\.js file2\.js \.\.\.
 .
 .fi
 .
 .IP "" 0
 .
 .P
-For example, if the default config\.js looks like:
+For example, if the default config\.json looks like:
 .
 .IP "" 4
 .
 .nf
-var options = {
-    adsafe       : false,
-    bitwise      : true,
-    error_prefix : "\\u001b[1m",
-    error_suffix : ":\\u001b[0m "
+{
+    "adsafe"       : false,
+    "bitwise"      : true,
+    "error_prefix" : "\\u001b[1m",
+    "error_suffix" : ":\\u001b[0m "
 };
 .
 .fi
@@ -98,14 +98,14 @@ var options = {
 .IP "" 0
 .
 .P
-And your custom\.js looks like:
+And your custom\.json looks like:
 .
 .IP "" 4
 .
 .nf
-var options = {
-    bitwise      : false,
-    browser      : false
+{
+    "bitwise"      : false,
+    "browser"      : false
 };
 .
 .fi
@@ -118,12 +118,12 @@ Then the final options will be:
 .IP "" 4
 .
 .nf
-var options = {
-    adsafe       : false,
-    bitwise      : false,
-    browser      : false,
-    error_prefix : "\\u001b[1m",
-    error_suffix : ":\\u001b[0m "
+{
+    "adsafe"       : false,
+    "bitwise"      : false,
+    "browser"      : false,
+    "error_prefix" : "\\u001b[1m",
+    "error_suffix" : ":\\u001b[0m "
 };
 .
 .fi
@@ -351,16 +351,15 @@ True if the Windows globals should be predefined\.
 .IP "" 0
 .
 .SH "AUTHORS"
-Written by Tav and other nodelint contributors\.
-.
-.br
+Originally written by Tav and other node\-lint contributors\.
+Forked by as\-jpolo\. 
 Contributors list: \fIhttp://github\.com/tav/nodelint/contributors\fR\|\.
 .
 .SH "REPORTING BUGS"
-Report nodelint bugs to \fIhttp://github\.com/tav/nodelint/issues\fR\|\.
+Report node\-lint bugs to \fIhttp://github\.com/as\-jpolo/node\-lint/issues\fR\|\.
 .
 .SH "COPYRIGHT"
-Nodelint has been released into the Public Domain by its Authors\.
+node\-lint is under MIT License\.
 .
 .SH "SEE ALSO"
 node(1)
