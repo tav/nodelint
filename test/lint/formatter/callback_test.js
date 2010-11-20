@@ -57,7 +57,7 @@ var FormatterTest = vows.describe('Callback Formatter class').addBatch({
     },
     "format() / with raw javascript as callback" : {
         topic : function (item) {
-            return createFormatter({callback: "function reporter(report) {return report};"});
+            return createFormatter({callback: "function format(report) {return report};"});
         },
         'should format empty report' : function (topic) {
             

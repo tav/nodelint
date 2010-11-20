@@ -1,25 +1,25 @@
-nodelint(1) -- Run JSLint from the command-line under node.js
+node-lint(1) -- Run JSLint from the command-line under node.js
 =============================================================
 
 ## SYNOPSIS
 
-    nodelint [options] <file-or-directory> [<file-or-directory> ...]
+    node-lint [options] <file-or-directory> [<file-or-directory> ...]
 
 ## DESCRIPTION
 
-The nodelint command-line tool allows you to check for problems and ensure  
+The node-lint command-line tool allows you to check for problems and ensure  
 the code quality of your JavaScript files using JSLint.
 
 It is completely extensible so you can use your own custom JSLint config or  
-even use custom reporters that better integrate with your quality assurance  
+even use custom formatters that better integrate with your quality assurance  
 framework.
 
 ## OPTIONS
 
-  __--reporter FILE__:  
-      Override the default reporter with your own custom module. See  
-      the *examples/reporters* directory for custom reporters that come  
-      bundled with nodelint.
+  __--formatter FILE__:  
+      Override the default formatter with your own custom module. See  
+      the *examples/* directory for custom formatters that come  
+      bundled with node-lint.
 
   __--config FILE__:  
       Override the default *config.js* with your own config file.
@@ -31,40 +31,40 @@ framework.
       Output version information and exit.
 
   __<file-or-directory>__:
-      You can run nodelint on specific files or on all *\*.js* files inside  
+      You can run node-lint on specific files or on all *\*.js* files inside  
       a directory.
 
 ## CONFIG
 
-You can customise the JSLint options by modifying the default config.js  
+You can customize the JSLint options by modifying the default config.js  
 file or by providing your own config file with the *--config* parameter:
 
-    nodelint --config path/to/custom.js file1.js file2.js ...
+    node-lint --config path/to/custom.json file1.js file2.js ...
 
-For example, if the default config.js looks like:
+For example, if the default config.json looks like:
 
-    var options = {
-        adsafe       : false,
-        bitwise      : true,
-        error_prefix : "\u001b[1m",
-        error_suffix : ":\u001b[0m "
+    {
+        "adsafe"       : false,
+        "bitwise"      : true,
+        "error_prefix" : "\u001b[1m",
+        "error_suffix" : ":\u001b[0m "
     };
 
-And your custom.js looks like:
+And your custom.json looks like:
 
-    var options = {
-        bitwise      : false,
-        browser      : false
+    {
+        "bitwise"      : false,
+        "browser"      : false
     };
 
 Then the final options will be:
 
-    var options = {
-        adsafe       : false,
-        bitwise      : false,
-        browser      : false,
-        error_prefix : "\u001b[1m",
-        error_suffix : ":\u001b[0m "
+    {
+        "adsafe"       : false,
+        "bitwise"      : false,
+        "browser"      : false,
+        "error_prefix" : "\u001b[1m",
+        "error_suffix" : ":\u001b[0m "
     };
 
 ## JSLINT OPTIONS
@@ -145,16 +145,17 @@ Then the final options will be:
 
 ## AUTHORS
 
-Written by Tav and other nodelint contributors.  
+Originally written by Tav and other node-lint contributors.
+Forked by as-jpolo. 
 Contributors list: <http://github.com/tav/nodelint/contributors>.
 
 ## REPORTING BUGS
 
-Report nodelint bugs to <http://github.com/tav/nodelint/issues>.
+Report node-lint bugs to <http://github.com/as-jpolo/node-lint/issues>.
 
 ## COPYRIGHT
 
-Nodelint has been released into the Public Domain by its Authors.
+node-lint is under MIT License.
 
 ## SEE ALSO
 
