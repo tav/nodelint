@@ -1,4 +1,5 @@
-PACKAGE = nodelint
+PACKAGE = node-lint
+PACKAGE_BIN = node-lint
 NODEJS = $(if $(shell test -f /usr/bin/nodejs && echo "true"),nodejs,node)
 
 PREFIX ?= /usr/local
@@ -6,7 +7,7 @@ BINDIR ?= $(PREFIX)/bin
 DATADIR ?= $(PREFIX)/share
 MANDIR ?= $(PREFIX)/share/man
 LIBDIR ?= $(PREFIX)/lib
-ETCDIR = /etc
+ETCDIR ?= $(PREFIX)/etc
 PACKAGEDATADIR ?= $(DATADIR)/$(PACKAGE)
 
 BUILDDIR = dist
@@ -22,24 +23,23 @@ all: build doc
 
 build: stamp-build
 
-stamp-build: jslint/jslint.js nodelint config.js
+stamp-build: lib bin etc
 	touch $@;
-	cp $^ $(BUILDDIR);
-	perl -pi -e 's{^\s*SCRIPT_DIRECTORY =.*?\n}{}ms' $(BUILDDIR)/nodelint
-	perl -pi -e 's{path\.join\(SCRIPT_DIRECTORY, '\''config.js'\''\)}{"$(ETCDIR)/nodelint.conf"}' $(BUILDDIR)/nodelint
-	perl -pi -e 's{path\.join\(SCRIPT_DIRECTORY, '\''jslint/jslint\.js'\''\)}{"$(PACKAGEDATADIR)/jslint.js"}' $(BUILDDIR)/nodelint
+	cp -R -t $(BUILDDIR) $^;
+	perl -pi -e 's{^\s*LIB_PATH=.*?\n}{LIB_PATH="$(PACKAGEDATADIR)"\n}ms' $(BUILDDIR)/bin/node-lint
+	perl -pi -e 's{^\s*export NODELINT_CONFIG_FILE=.*?\n}{export NODELINT_CONFIG_FILE="$(ETCDIR)/$(PACKAGE).conf"\n}ms' $(BUILDDIR)/bin/$(PACKAGE_BIN)
 
 install: build doc
 	install --directory $(PACKAGEDATADIR)
-	install --mode 0644 $(BUILDDIR)/jslint.js $(PACKAGEDATADIR)/jslint.js
-	install --mode 0644 $(BUILDDIR)/config.js $(ETCDIR)/nodelint.conf
-	install --mode 0755 $(BUILDDIR)/nodelint $(BINDIR)/nodelint
+	cp -r -t $(PACKAGEDATADIR) $(BUILDDIR)/lib/*
+	install --mode 0644 $(BUILDDIR)/etc/config.json $(ETCDIR)/$(PACKAGE).conf
+	install --mode 0755 $(BUILDDIR)/bin/$(PACKAGE_BIN) $(BINDIR)/$(PACKAGE_BIN)
 	install --directory $(MANDIR)/man1/
-	cp -a man1/nodelint.1 $(MANDIR)/man1/
+	cp -a man1/node-lint.1 $(MANDIR)/man1/
 
 uninstall:
-	rm -rf $(PACKAGEDATADIR)/jslint.js $(ETCDIR)/nodelint.conf $(BINDIR)/nodelint
-	rm -rf $(MANDIR)/man1/nodelint.1
+	rm -rf $(PACKAGEDATADIR) $(ETCDIR)/$(PACKAGE).conf $(BINDIR)/$(PACKAGE_BIN)
+	rm -rf $(MANDIR)/man1/$(PACKAGE).1
 
 clean:
 	rm -rf $(BUILDDIR) stamp-build
