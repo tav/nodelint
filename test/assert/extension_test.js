@@ -22,7 +22,7 @@ var AssertExtensionTest = vows.describe('assert module').addBatch({
 		},
 		'should not throw an error if wrong javascript is passed' : function (topic) {
             assert.doesNotThrow(function () {
-                topic("foo = 'bar';");
+                topic("var foo = 'bar';");
             });
         }
 	},
