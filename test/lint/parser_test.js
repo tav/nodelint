@@ -1,7 +1,12 @@
 /*jslint indent:4 */
 var vows = require('vows');
 var assert = require('assert');
+var fs = require('fs');
+var path = require('path');
+
 var parser = require('../../lib/lint/parser');
+
+var FIXTURE_PATH = fs.realpathSync(path.join(path.dirname(path.dirname(__dirname)), 'resource', 'fixture'));
 
 function createParser(options) {
 	return new parser.Parser(options);
@@ -92,4 +97,79 @@ var ParserTest = vows.describe('Parser class').addBatch({
 	
 });
 
+var ParserModuleTest = vows.describe('parser module').addBatch({
+    "isValid()" : {
+        topic : function (item) {
+            return parser.isValid;
+        },
+        'should return true if empty' : function (topic) {
+            assert.equal(topic(''), true);
+        },
+        'should return true if valid javascript (simple)' : function (topic) {
+            assert.equal(topic('var foo = "bar";'), true);
+            assert.equal(topic('var foo = "baz";'), true);
+        },
+        'should return false if invalid javascript (simple)' : function (topic) {
+            assert.equal(topic('var foo = "bar"'), false);//(missing semicolon)
+        }
+    },
+    "isValidFile()" : {
+        topic : function (item) {
+            var report = {};
+            var self = this;
+            
+           
+            
+            parser.isValidFile('nonexistent.js', null, function (error, result) {
+                report.nonExistent = {error: error, result: result};
+                
+                var validFile = path.join(FIXTURE_PATH, 'valid_test.js');
+                parser.isValidFile(validFile, null, function (error, result) {
+                    report.validFile = {error: error, result: result};
+                 
+                    var invalidFile = path.join(FIXTURE_PATH, 'invalid_test.js');
+                    parser.isValidFile(invalidFile, null, function (error, result) {
+                        report.invalidFile = {error: error, result: result};
+                        
+                        self.callback(null, report);
+                    });
+                });
+            });
+           
+        },
+        'should set error in callback if file does not exist' : function (topic) {
+            assert.notEqual(topic.nonExistent.error, undefined);
+        },
+        'should return true if valid javascript file' : function (topic) {
+            assert.isUndefined(topic.validFile.error);
+            assert.equal(topic.validFile.result, true);
+        },
+        'should return false if invalid javascript file' : function (topic) {
+            assert.isUndefined(topic.invalidFile.error);
+            assert.equal(topic.invalidFile.result, false);
+        }
+    },
+    "isValidFileSync()" : {
+        topic : function (item) {
+            return parser.isValidFileSync;
+        },
+        'should throw an error if file does not exist' : function (topic) {
+            assert.throws(function () {
+                topic('nonexistent.js');
+            });
+        },
+        'should return true if valid javascript file' : function (topic) {
+            var fixtureFile = path.join(FIXTURE_PATH, 'valid_test.js');
+            assert.equal(topic(fixtureFile), true);
+            assert.equal(topic(fixtureFile), true);
+        },
+        'should return false if invalid javascript file' : function (topic) {
+            var fixtureFile = path.join(FIXTURE_PATH, 'invalid_test.js');
+            assert.equal(topic(fixtureFile), false);
+        }
+    }
+});
+
+
 exports.ParserTest = ParserTest;
+exports.ParserModuleTest = ParserModuleTest;
