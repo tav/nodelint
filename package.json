@@ -15,7 +15,7 @@
          "Felix Geisendörfer (http://debuggable.com)",
          "Nathan Landis (http://github.com/my8bird)"
     ],
-    "main" : "./lib/vows",
+    "main" : "./lib/lint",
     "bin": {
         "node-lint": "./bin/node-lint"
     },
