@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+var util = require(process.binding('natives').util ? 'util' : 'sys');
 var path = require('path');
 
 var ROOT_PATH, LIB_PATH;
