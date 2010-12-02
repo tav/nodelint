@@ -40,7 +40,7 @@ var AssertExtensionTest = vows.describe('assert module').addBatch({
         },
         'should throw an error if file does not contains valid javascript' : function (topic) {
             var fixtureFile = path.join(FIXTURE_PATH, 'invalid_test.js');
-            
+
             assert.doesNotThrow(function () {
                 fs.realpathSync(fixtureFile);
             });
