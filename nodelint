@@ -113,7 +113,9 @@
     files.forEach(function (file) {
       var source,
           i,
-          error;
+          error,
+          // Quite enougth config clone, may be improved in future
+          current_file_options = JSON.parse(JSON.stringify(real_options));
 
       try {
         source = fs.readFileSync(file, 'utf8');
@@ -127,7 +129,7 @@
       // remove any shebangs
       source = source.replace(/^\#\!.*/, '');
 
-      if (!JSLINT(source, real_options)) {
+      if (!JSLINT(source, current_file_options)) {
         for (i = 0; i < JSLINT.errors.length; i += 1) {
           error = JSLINT.errors[i];
           if (error) {
