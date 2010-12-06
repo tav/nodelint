@@ -1,5 +1,5 @@
 // jslint.js
-// 2010-10-16
+// 2010-12-02
 
 /*
 Copyright (c) 2002 Douglas Crockford  (www.JSLint.com)
@@ -33,11 +33,14 @@ SOFTWARE.
     The first parameter is either a string or an array of strings. If it is a
     string, it will be split on '\n' or '\r'. If it is an array of strings, it
     is assumed that each string represents one line. The source can be a
-    JavaScript text, or HTML text, or a Konfabulator text.
+    JavaScript text, or HTML text, or a JSON text, or a CSS text.
 
     The second parameter is an optional object of options which control the
     operation of JSLINT. Most of the options are booleans: They are all are
-    optional and have a default value of false.
+    optional and have a default value of false. One of the options, predef,
+    can be an array of names, which will be used to declare constant globals,
+    or an object whose keys are used as global names, with a boolean value
+    that determines if they are constant.
 
     If it checks out, JSLINT returns true. Otherwise, it returns false.
 
@@ -148,19 +151,20 @@ SOFTWARE.
     "(begin)", "(breakage)", "(context)", "(error)", "(global)",
     "(identifier)", "(last)", "(line)", "(loopage)", "(name)", "(onevar)",
     "(params)", "(scope)", "(statement)", "(verb)", "*", "+", "++", "-",
-    "--", "\/", "<", "<=", "==", "===", ">", ">=", ADSAFE, ActiveXObject,
-    Array, Boolean, COM, CScript, Canvas, CustomAnimation, Date, Debug, E,
-    Enumerator, Error, EvalError, FadeAnimation, Flash, FormField, Frame,
-    Function, HotKey, Image, JSON, LN10, LN2, LOG10E, LOG2E, MAX_VALUE,
-    MIN_VALUE, Math, MenuItem, MoveAnimation, NEGATIVE_INFINITY, Number,
-    Object, Option, PI, POSITIVE_INFINITY, Point, RangeError, Rectangle,
-    ReferenceError, RegExp, ResizeAnimation, RotateAnimation, SQRT1_2,
-    SQRT2, ScrollBar, String, Style, SyntaxError, System, Text, TextArea,
-    Timer, TypeError, URIError, URL, VBArray, WScript, Web, Window, XMLDOM,
-    XMLHttpRequest, "\\", a, abbr, acronym, addEventListener, address,
-    adsafe, alert, aliceblue, animator, antiquewhite, appleScript, applet,
-    apply, approved, aqua, aquamarine, area, arguments, arity, article,
-    aside, audio, autocomplete, azure, b, background,
+    "--", "\/", "<", "<=", "==", "===", ">", ">=", ADSAFE,
+    ActiveXObject, Array, Boolean, COM, CScript, Canvas, CustomAnimation,
+    Date, Debug, E, Enumerator, Error, EvalError, FadeAnimation, Flash,
+    FormField, Frame, Function, HotKey, Image, JSON, LN10, LN2, LOG10E,
+    LOG2E, MAX_VALUE, MIN_VALUE, Math, MenuItem, MoveAnimation,
+    NEGATIVE_INFINITY, Number, Object, Option, PI, POSITIVE_INFINITY, Point,
+    RangeError, Rectangle, ReferenceError, RegExp, ResizeAnimation,
+    RotateAnimation, SQRT1_2, SQRT2, ScrollBar, String, Style, SyntaxError,
+    System, Text, TextArea, Timer, TypeError, URIError, URL, VBArray,
+    WScript, Web, Window, XMLDOM, XMLHttpRequest, "\\", a, abbr, acronym,
+    activeborder, activecaption, addEventListener, address, adsafe, alert,
+    aliceblue, all, animator, antiquewhite, appleScript, applet, apply,
+    approved, appworkspace, aqua, aquamarine, area, arguments, arity,
+    article, aside, audio, autocomplete, azure, b, background,
     "background-attachment", "background-color", "background-image",
     "background-position", "background-repeat", base, bdo, beep, beige, big,
     bisque, bitwise, black, blanchedalmond, block, blockquote, blue,
@@ -170,37 +174,39 @@ SOFTWARE.
     "border-left-width", "border-right", "border-right-color",
     "border-right-style", "border-right-width", "border-spacing",
     "border-style", "border-top", "border-top-color", "border-top-style",
-    "border-top-width", "border-width", bottom, br, brown, browser,
-    burlywood, button, bytesToUIString, c, cadetblue, call, callee, caller,
-    canvas, cap, caption, "caption-side", cases, center, charAt, charCodeAt,
-    character, chartreuse, chocolate, chooseColor, chooseFile, chooseFolder,
-    cite, clear, clearInterval, clearTimeout, clip, close, closeWidget,
-    closed, closure, cm, code, col, colgroup, color, command, comment,
-    condition, confirm, console, constructor, content, convertPathToHFS,
-    convertPathToPlatform, coral, cornflowerblue, cornsilk,
-    "counter-increment", "counter-reset", create, crimson, css, cursor,
-    cyan, d, darkblue, darkcyan, darkgoldenrod, darkgray, darkgreen,
+    "border-top-width", "border-width", bottom, br, braille, brown, browser,
+    burlywood, button, buttonface, buttonhighlight, buttonshadow,
+    buttontext, bytesToUIString, c, cadetblue, call, callee, caller, canvas,
+    cap, caption, "caption-side", captiontext, cases, center, charAt,
+    charCodeAt, character, chartreuse, chocolate, chooseColor, chooseFile,
+    chooseFolder, cite, clear, clearInterval, clearTimeout, clip, close,
+    closeWidget, closed, closure, cm, code, col, colgroup, color, command,
+    comment, condition, confirm, console, constructor, content,
+    convertPathToHFS, convertPathToPlatform, coral, cornflowerblue,
+    cornsilk, "counter-increment", "counter-reset", create, crimson, css,
+    cursor, cyan, d, darkblue, darkcyan, darkgoldenrod, darkgray, darkgreen,
     darkkhaki, darkmagenta, darkolivegreen, darkorange, darkorchid, darkred,
     darksalmon, darkseagreen, darkslateblue, darkslategray, darkturquoise,
     darkviolet, data, datalist, dd, debug, decodeURI, decodeURIComponent,
     deeppink, deepskyblue, defaultStatus, defineClass, del, deserialize,
-    details, devel, dfn, dialog, dimension, dimgray, dir, direction,
-    display, div, dl, document, dodgerblue, dt, edition, else, em, embed,
-    empty, "empty-cells", encodeURI, encodeURIComponent, entityify, eqeqeq,
-    errors, es5, escape, eval, event, evidence, evil, ex, exception, exec, exps,
+    details, devel, dfn, dialog, dimgray, dir, direction, display, div, dl,
+    document, dodgerblue, dt, edition, else, em, embed, embossed, empty,
+    "empty-cells", encodeURI, encodeURIComponent, entityify, eqeqeq, errors,
+    es5, escape, eval, event, evidence, evil, ex, exception, exec, exps,
     fieldset, figure, filesystem, firebrick, first, float, floor,
-    floralwhite, focus, focusWidget, font, "font-face", "font-family",
-    "font-size", "font-size-adjust", "font-stretch", "font-style",
-    "font-variant", "font-weight", footer, forestgreen, forin, form,
-    fragment, frame, frames, frameset, from, fromCharCode, fuchsia, fud,
-    funct, function, functions, g, gainsboro, gc, getComputedStyle,
-    ghostwhite, global, globals, gold, goldenrod, gray, green, greenyellow,
-    h1, h2, h3, h4, h5, h6, hasOwnProperty, head, header, height, help,
-    hgroup, history, honeydew, hotpink, hr, 'hta:application', html,
-    i, iTunes, id, identifier,
-    iframe, img, immed, implieds, in, include, indent, indexOf, indianred,
-    indigo, init, input, ins, isAlpha, isApplicationRunning, isDigit,
-    isFinite, isNaN, ivory, join, jslint, json, kbd, keygen, khaki,
+    floralwhite, focus, focusWidget, font, "font-family", "font-size",
+    "font-size-adjust", "font-stretch", "font-style", "font-variant",
+    "font-weight", footer, forestgreen, forin, form, fragment, frame,
+    frames, frameset, from, fromCharCode, fuchsia, fud, funct, function,
+    functions, g, gainsboro, gc, getComputedStyle, ghostwhite, global,
+    globals, gold, goldenrod, gray, graytext, green, greenyellow, h1, h2,
+    h3, h4, h5, h6, handheld, hasOwnProperty, head, header, height, help,
+    hgroup, highlight, highlighttext, history, honeydew, hotpink, hr,
+    "hta:application", html, i, iTunes, id, identifier, iframe, img, immed,
+    implieds, in, inactiveborder, inactivecaption, inactivecaptiontext,
+    include, indent, indexOf, indianred, indigo, infobackground, infotext,
+    init, input, ins, isAlpha, isApplicationRunning, isArray, isDigit,
+    isFinite, isNaN, ivory, join, jslint, json, kbd, keygen, keys, khaki,
     konfabulatorVersion, label, labelled, lang, last, lavender,
     lavenderblush, lawngreen, laxbreak, lbp, led, left, legend,
     lemonchiffon, length, "letter-spacing", li, lib, lightblue, lightcoral,
@@ -211,9 +217,9 @@ SOFTWARE.
     "list-style-type", load, loadClass, location, log, m, magenta, map,
     margin, "margin-bottom", "margin-left", "margin-right", "margin-top",
     mark, "marker-offset", maroon, match, "max-height", "max-width", maxerr,
-    maxlen, md5, media, mediumaquamarine, mediumblue, mediumorchid,
-    mediumpurple, mediumseagreen, mediumslateblue, mediumspringgreen,
-    mediumturquoise, mediumvioletred, member, menu, message, meta, meter,
+    maxlen, md5, mediumaquamarine, mediumblue, mediumorchid, mediumpurple,
+    mediumseagreen, mediumslateblue, mediumspringgreen, mediumturquoise,
+    mediumvioletred, member, menu, menutext, message, meta, meter,
     midnightblue, "min-height", "min-width", mintcream, mistyrose, mm,
     moccasin, moveBy, moveTo, name, nav, navajowhite, navigator, navy, new,
     newcap, noframes, nomen, noscript, nud, object, ol, oldlace, olive,
@@ -222,33 +228,34 @@ SOFTWARE.
     option, orange, orangered, orchid, outer, outline, "outline-color",
     "outline-style", "outline-width", output, overflow, "overflow-x",
     "overflow-y", p, padding, "padding-bottom", "padding-left",
-    "padding-right", "padding-top", page, "page-break-after",
-    "page-break-before", palegoldenrod, palegreen, paleturquoise,
-    palevioletred, papayawhip, param, parent, parseFloat, parseInt,
-    passfail, pc, peachpuff, peru, pink, play, plum, plusplus, pop,
-    popupMenu, position, powderblue, pre, predef, preferenceGroups,
-    preferences, print, progress, prompt, prototype, pt, purple, push, px,
-    q, quit, quotes, random, range, raw, reach, readFile, readUrl, reason,
-    red, regexp, reloadWidget, removeEventListener, replace, report,
-    reserved, resizeBy, resizeTo, resolvePath, resumeUpdates, rhino, right,
-    rosybrown, royalblue, rp, rt, ruby, runCommand, runCommandInBg,
-    saddlebrown, safe, salmon, samp, sandybrown, saveAs, savePreferences,
-    screen, script, scroll, scrollBy, scrollTo, seagreen, seal, search,
-    seashell, section, select, serialize, setInterval, setTimeout, shift,
-    showWidgetPreferences, sienna, silver, skyblue, slateblue, slategray,
-    sleep, slice, small, snow, sort, source, span, spawn, speak, split,
-    springgreen, src, stack, statement, status, steelblue, strict, strong,
-    style, styleproperty, sub, substr, sup, supplant, suppressUpdates, sync,
-    system, table, "table-layout", tan, tbody, td, teal, tellWidget, test,
-    "text-align", "text-decoration", "text-indent", "text-shadow",
-    "text-transform", textarea, tfoot, th, thead, thistle, time, title,
+    "padding-right", "padding-top", "page-break-after", "page-break-before",
+    palegoldenrod, palegreen, paleturquoise, palevioletred, papayawhip,
+    param, parent, parseFloat, parseInt, passfail, pc, peachpuff, peru,
+    pink, play, plum, plusplus, pop, popupMenu, position, powderblue, pre,
+    predef, preferenceGroups, preferences, print, progress, projection,
+    prompt, prototype, pt, purple, push, px, q, quit, quotes, random, range,
+    raw, reach, readFile, readUrl, reason, red, regexp, reloadWidget,
+    removeEventListener, replace, report, reserved, resizeBy, resizeTo,
+    resolvePath, resumeUpdates, rhino, right, rosybrown, royalblue, rp, rt,
+    ruby, runCommand, runCommandInBg, saddlebrown, safe, salmon, samp,
+    sandybrown, saveAs, savePreferences, screen, script, scroll, scrollBy,
+    scrollTo, scrollbar, seagreen, seal, search, seashell, section, select,
+    serialize, setInterval, setTimeout, shift, showWidgetPreferences,
+    sienna, silver, skyblue, slateblue, slategray, sleep, slice, small,
+    snow, sort, source, span, spawn, speak, speech, split, springgreen, src,
+    stack, status, steelblue, strict, strong, style, styleproperty, sub,
+    substr, sup, supplant, suppressUpdates, sync, system, table,
+    "table-layout", tan, tbody, td, teal, tellWidget, test, "text-align",
+    "text-decoration", "text-indent", "text-shadow", "text-transform",
+    textarea, tfoot, th, thead, thistle, threeddarkshadow, threedface,
+    threedhighlight, threedlightshadow, threedshadow, time, title,
     toLowerCase, toString, toUpperCase, toint32, token, tomato, top, tr, tt,
-    turquoise, type, u, ul, undef, unescape, "unicode-bidi", unused,
-    unwatch, updateNow, urls, value, valueOf, var, version,
+    tty, turquoise, tv, type, u, ul, undef, unescape, "unicode-bidi",
+    unused, unwatch, updateNow, urls, value, valueOf, var, version,
     "vertical-align", video, violet, visibility, watch, wheat, white,
-    "white-space", whitesmoke, widget, width, windows, "word-spacing",
-    "word-wrap", yahooCheckLogin, yahooLogin, yahooLogout, yellow,
-    yellowgreen, "z-index"
+    "white-space", whitesmoke, widget, width, window, windowframe, windows,
+    windowtext, "word-spacing", "word-wrap", yahooCheckLogin, yahooLogin,
+    yahooLogout, yellow, yellowgreen, "z-index"
 */
 
 // We build the application inside a function so that we produce only a single
@@ -258,17 +265,50 @@ SOFTWARE.
 "use strict";
 
 var JSLINT = (function () {
+
+    function F() {}     // Used by Object.create
+
+    function is_own(object, name) {
+
+// The object.hasOwnProperty method fails when the property under consideration
+// is named 'hasOwnProperty'. So we have to use this more convoluted form.
+
+        return Object.prototype.hasOwnProperty.call(object, name);
+    }
+
+// Provide critical ES5 functions to ES3.
+
+    if (typeof Array.isArray !== 'function') {
+        Array.isArray = function (o) {
+            return Object.prototype.toString.apply(o) === '[object Array]';
+        };
+    }
+
+    if (typeof Object.create !== 'function') {
+        Object.create = function (o) {
+            F.prototype = o;
+            return new F();
+        };
+    }
+
+    if (typeof Object.keys !== 'function') {
+        Object.keys = function (o) {
+            var a = [], k;
+            for (k in o) {
+                if (is_own(o, k)) {
+                    a.push(k);
+                }
+            }
+            return a;
+        };
+    }
+
+
     var adsafe_id,      // The widget's ADsafe id.
         adsafe_may,     // The widget may load approved scripts.
         adsafe_went,    // ADSAFE.go has been called.
         anonname,       // The guessed name for anonymous functions.
         approved,       // ADsafe approved urls.
-
-        atrule = {
-            media      : true,
-            'font-face': true,
-            page       : true
-        },
 
 // These are operators that should not be used with the ! operator.
 
@@ -530,7 +570,36 @@ var JSLINT = (function () {
             "white"                 : true,
             "whitesmoke"            : true,
             "yellow"                : true,
-            "yellowgreen"           : true
+            "yellowgreen"           : true,
+
+            "activeborder"          : true,
+            "activecaption"         : true,
+            "appworkspace"          : true,
+            "background"            : true,
+            "buttonface"            : true,
+            "buttonhighlight"       : true,
+            "buttonshadow"          : true,
+            "buttontext"            : true,
+            "captiontext"           : true,
+            "graytext"              : true,
+            "highlight"             : true,
+            "highlighttext"         : true,
+            "inactiveborder"        : true,
+            "inactivecaption"       : true,
+            "inactivecaptiontext"   : true,
+            "infobackground"        : true,
+            "infotext"              : true,
+            "menu"                  : true,
+            "menutext"              : true,
+            "scrollbar"             : true,
+            "threeddarkshadow"      : true,
+            "threedface"            : true,
+            "threedhighlight"       : true,
+            "threedlightshadow"     : true,
+            "threedshadow"          : true,
+            "window"                : true,
+            "windowframe"           : true,
+            "windowtext"            : true
         },
 
         cssBorderStyle,
@@ -548,6 +617,7 @@ var JSLINT = (function () {
             'px': true
         },
 
+        cssMedia,
         cssOverflow,
 
         devel = {
@@ -735,17 +805,6 @@ var JSLINT = (function () {
         },
 
         scope,      // The current scope
-
-        windows = {
-            ActiveXObject: false,
-            CScript      : false,
-            Debug        : false,
-            Enumerator   : false,
-            System       : false,
-            VBArray      : false,
-            WScript      : false
-        },
-
         src,
         stack,
 
@@ -788,13 +847,13 @@ var JSLINT = (function () {
             LN10                : true,
             LOG2E               : true,
             LOG10E              : true,
-            PI                  : true,
-            SQRT1_2             : true,
-            SQRT2               : true,
             MAX_VALUE           : true,
             MIN_VALUE           : true,
             NEGATIVE_INFINITY   : true,
-            POSITIVE_INFINITY   : true
+            PI                  : true,
+            POSITIVE_INFINITY   : true,
+            SQRT1_2             : true,
+            SQRT2               : true
         },
 
         strict_mode,
@@ -884,6 +943,16 @@ var JSLINT = (function () {
             yahooLogout             : true
         },
 
+        windows = {
+            ActiveXObject: false,
+            CScript      : false,
+            Debug        : false,
+            Enumerator   : false,
+            System       : false,
+            VBArray      : false,
+            WScript      : false
+        },
+
 //  xmode is used to adapt to the exceptions in html parsing.
 //  It can have these states:
 //      false   .js script file
@@ -897,8 +966,10 @@ var JSLINT = (function () {
         xmode,
         xquote,
 
+// Regular expressions. Some of these are ridiculously long.
+
 // unsafe comment or string
-        ax = /@cc|<\/?|script|\]*s\]|<\s*!|&lt/i,
+        ax = /@cc|<\/?|script|\]\s*\]|<\s*!|&lt/i,
 // unsafe characters that are silently deleted by one or more browsers
         cx = /[\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/,
 // token
@@ -933,19 +1004,6 @@ var JSLINT = (function () {
             styleproperty: ssx
         };
 
-    function F() {}
-
-    if (typeof Object.create !== 'function') {
-        Object.create = function (o) {
-            F.prototype = o;
-            return new F();
-        };
-    }
-
-
-    function is_own(object, name) {
-        return Object.prototype.hasOwnProperty.call(object, name);
-    }
 
 
     function combine(t, o) {
@@ -1790,7 +1848,7 @@ klass:                                  do {
                                     line, character + l);
                             }
                             character += i;
-                            if (s[i + 2] !== '>') {
+                            if (s.charAt(i + 2) !== '>') {
                                 errorAt("Expected -->.", line, character);
                             }
                             character += 3;
@@ -3029,13 +3087,26 @@ loop:   for (;;) {
 
 
     cssBorderStyle = [
-        'none', 'hidden', 'dotted', 'dashed', 'solid', 'double', 'ridge',
-        'inset', 'outset'
+        'none', 'dashed', 'dotted', 'double', 'groove',
+        'hidden', 'inset', 'outset', 'ridge', 'solid'
     ];
 
     cssBreak = [
         'auto', 'always', 'avoid', 'left', 'right'
     ];
+
+    cssMedia = {
+        'all': true,
+        'braille': true,
+        'embossed': true,
+        'handheld': true,
+        'print': true,
+        'projection': true,
+        'screen': true,
+        'speech': true,
+        'tty': true,
+        'tv': true
+    };
 
     cssOverflow = [
         'auto', 'hidden', 'scroll', 'visible'
@@ -3507,18 +3578,9 @@ loop:   for (;;) {
     }
 
     function stylePattern() {
-        var name;
         if (nexttoken.id === '{') {
             warning("Expected a style pattern, and instead saw '{a}'.", nexttoken,
                 nexttoken.id);
-        } else if (nexttoken.id === '@') {
-            advance('@');
-            name = nexttoken.value;
-            if (nexttoken.identifier && atrule[name] === true) {
-                advance();
-                return name;
-            }
-            warning("Expected an at-rule, and instead saw @{a}.", nexttoken, name);
         }
         for (;;) {
             styleSelector();
@@ -3532,23 +3594,7 @@ loop:   for (;;) {
         }
     }
 
-    function styles() {
-        var i;
-        while (nexttoken.id === '@') {
-            i = peek();
-            if (i.identifier && i.value === 'import') {
-                advance('@');
-                advance();
-                if (!cssUrl()) {
-                    warning("Expected '{a}' and instead saw '{b}'.", nexttoken,
-                        'url', nexttoken.value);
-                    advance();
-                }
-                advance(';');
-            } else {
-                break;
-            }
-        }
+    function stylelist() {
         while (nexttoken.id !== '</' && nexttoken.id !== '(end)') {
             stylePattern();
             xmode = 'styleproperty';
@@ -3561,6 +3607,50 @@ loop:   for (;;) {
                 advance('}');
             }
         }
+    }
+
+    function styles() {
+        var i;
+        while (nexttoken.id === '@') {
+            i = peek();
+            advance('@');
+            if (nexttoken.identifier) {
+                switch (nexttoken.value) {
+                case 'import':
+                    advance();
+                    if (!cssUrl()) {
+                        warning("Expected '{a}' and instead saw '{b}'.",
+                            nexttoken, 'url', nexttoken.value);
+                        advance();
+                    }
+                    advance(';');
+                    break;
+                case 'media':
+                    advance();
+                    for (;;) {
+                        if (!nexttoken.identifier || cssMedia[nexttoken.value] === true) {
+                            error("Expected a CSS media type, and instead saw '{a}'.", nexttoken, nexttoken.id);
+                        }
+                        advance();
+                        if (nexttoken.id !== ',') {
+                            break;
+                        }
+                        advance(',');
+                    }
+                    advance('{');
+                    stylelist();
+                    advance('}');
+                    break;
+                default:
+                    warning("Expected an at-rule, and instead saw @{a}.",
+                        nexttoken, nexttoken.value);
+                }
+            } else {
+                warning("Expected an at-rule, and instead saw '{a}'.",
+                    nexttoken, nexttoken.value);
+            }
+        }
+        stylelist();
     }
 
 
@@ -4035,7 +4125,7 @@ loop:   for (;;) {
 // then we have an undefined variable.
 
             } else if (funct['(global)']) {
-                if (option.undef && predefined[v] !== 'boolean') {
+                if (option.undef && typeof predefined[v] !== 'boolean') {
                     warning("'{a}' is not defined.", token, v);
                 }
                 note_implied(token);
@@ -4319,21 +4409,6 @@ loop:   for (;;) {
                         advance('(');
                         if (nexttoken.id === ')') {
                             warning("Use the array literal notation [].", token);
-                        } else {
-                            i = parse(0);
-                            c.dimension = i;
-                            if ((i.id === '(number)' && /[.+\-Ee]/.test(i.value)) ||
-                                    (i.id === '-' && !i.right) ||
-                                    i.id === '(string)' || i.id === '[' ||
-                                    i.id === '{' || i.id === 'true' ||
-                                    i.id === 'false' ||
-                                    i.id === 'null' || i.id === 'undefined' ||
-                                    i.id === 'Infinity') {
-                                warning("Use the array literal notation [].", token);
-                            }
-                            if (nexttoken.id !== ')') {
-                                error("Use the array literal notation [].", token);
-                            }
                         }
                         advance(')');
                     }
@@ -4449,7 +4524,9 @@ loop:   for (;;) {
     }, 160, true);
 
     infix('(', function (left, that) {
-        nobreak(prevtoken, token);
+        if (prevtoken.id !== '}' && prevtoken.id !== ')') {
+            nobreak(prevtoken, token);
+        }
         nospace();
         if (option.immed && !left.immed && left.id === 'function') {
             warning("Wrap an immediate function invocation in parentheses " +
@@ -5336,14 +5413,21 @@ loop:   for (;;) {
 // The actual JSLINT function itself.
 
     var itself = function (s, o) {
-        var a, i;
+        var a, i, k;
         JSLINT.errors = [];
         predefined = Object.create(standard);
         if (o) {
             a = o.predef;
-            if (a instanceof Array) {
-                for (i = 0; i < a.length; i += 1) {
-                    predefined[a[i]] = true;
+            if (a) {
+                if (Array.isArray(a)) {
+                    for (i = 0; i < a.length; i += 1) {
+                        predefined[a[i]] = true;
+                    }
+                } else if (typeof a === 'object') {
+                    k = Object.keys(a);
+                    for (i = 0; i < a.length; i += 1) {
+                        predefined[k[i]] = !!a[k];
+                    }
                 }
             }
             if (o.adsafe) {
@@ -5485,20 +5569,6 @@ loop:   for (;;) {
         return JSLINT.errors.length === 0;
     };
 
-    function is_array(o) {
-        return Object.prototype.toString.apply(o) === '[object Array]';
-    }
-
-    function to_array(o) {
-        var a = [], k;
-        for (k in o) {
-            if (is_own(o, k)) {
-                a.push(k);
-            }
-        }
-        return a;
-    }
-
 
 // Data summary.
 
@@ -5530,7 +5600,7 @@ loop:   for (;;) {
             data.urls = urls;
         }
 
-        globals = to_array(scope);
+        globals = Object.keys(scope);
         if (globals.length > 0) {
             data.globals = globals;
         }
@@ -5547,7 +5617,7 @@ loop:   for (;;) {
                     if (v === 'unction') {
                         v = 'unused';
                     }
-                    if (is_array(fu[v])) {
+                    if (Array.isArray(fu[v])) {
                         fu[v].push(n);
                         if (v === 'unused') {
                             unused.push({
@@ -5685,7 +5755,7 @@ loop:   for (;;) {
             }
 
             if (data.member) {
-                a = to_array(data.member);
+                a = Object.keys(data.member);
                 if (a.length) {
                     a = a.sort();
                     m = '<br><pre id=members>/*members ';
@@ -5716,8 +5786,9 @@ loop:   for (;;) {
     };
     itself.jslint = itself;
 
-    itself.edition = '2010-10-16';
+    itself.edition = '2010-12-02';
 
     return itself;
 
 }());
+
