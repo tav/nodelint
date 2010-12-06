@@ -171,6 +171,7 @@
    
   // a very basic pseudo --options parser
   params.forEach(function (param) {
+    var content, pkg, stat;
     if (param.slice(0, 9) === "--config=") {
       config_file = param.slice(9);
     } else if (param === '--config') {
@@ -184,16 +185,16 @@
       reporter_file = param;
       reporter_param_found = false;
     } else if ((param === '--version') || (param === '-v')) {
-      var content = fs.readFileSync(
+      content = fs.readFileSync(
                          path.join(SCRIPT_DIRECTORY, 'package.json'), 'utf8');
-      var pkg = JSON.parse(content);
+      pkg = JSON.parse(content);
       sys.puts(pkg.version);
       process.exit(0);
     } else if ((param === '--help') || (param === '-h')) {
-        sys.puts(usage);
-        process.exit(0);
+      sys.puts(usage);
+      process.exit(0);
     } else {
-      var stat = fs.statSync(param);
+      stat = fs.statSync(param);
       if (stat.isDirectory()) {
         walkDir(param, function (base, dirs, names) {
           for (var i = 0, ln = names.length; i < ln; i += 1) {

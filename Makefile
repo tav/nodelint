@@ -45,7 +45,7 @@ clean:
 	rm -rf $(BUILDDIR) stamp-build
 
 lint:
-	./nodelint ./config.js ./package.json ./examples/reporters/ ./examples/textmate/ ./examples/vim/
+	./nodelint ./nodelint ./config.js ./package.json ./examples/reporters/ ./examples/textmate/ ./examples/vim/
 
 doc: man1 $(DOCS)
 	@true
