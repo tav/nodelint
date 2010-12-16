@@ -19,7 +19,7 @@
         "node-lint": "./bin/node-lint"
     },
     "directories": {
-        "lib": "./lib/lint"
+        "lib": "./lib/lint",
         "doc": "./doc",
         "man": "./man1"
     },
