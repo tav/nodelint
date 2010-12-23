@@ -1,3 +1,4 @@
+/*jslint indent:4 */
 var vows = require('vows');
 require('../../lib/assert/extension');
 
@@ -8,25 +9,25 @@ var assert = require('assert');
 var FIXTURE_PATH = fs.realpathSync(path.join(path.dirname(path.dirname(__dirname)), 'resource', 'fixture'));
 
 var AssertExtensionTest = vows.describe('assert module').addBatch({
-	"validateLint()" : {
-		topic : function (item) {
-			return assert.validateLint;
-		},
-		'should return a function' : function (topic) {
-			assert.isFunction(topic);
-		},
-		'should throw an error if wrong javascript is passed' : function (topic) {
-		    assert.throws(function () {
-		        topic("fdslfjsdlkj;");
-		    });
-		},
-		'should not throw an error if wrong javascript is passed' : function (topic) {
+    "validateLint()" : {
+        topic : function (item) {
+            return assert.validateLint;
+        },
+        'should return a function' : function (topic) {
+            assert.isFunction(topic);
+        },
+        'should throw an error if wrong javascript is passed' : function (topic) {
+            assert.throws(function () {
+                topic("fdslfjsdlkj;");
+            });
+        },
+        'should not throw an error if wrong javascript is passed' : function (topic) {
             assert.doesNotThrow(function () {
                 topic("var foo = 'bar';");
             });
         }
-	},
-	"validateLintFile()" : {
+    },
+    "validateLintFile()" : {
         topic : function (item) {
             return assert.validateLintFile;
         },

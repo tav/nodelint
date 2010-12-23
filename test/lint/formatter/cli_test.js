@@ -1,3 +1,4 @@
+/*jslint indent:4 */
 var vows = require('vows');
 var assert = require('assert');
 var formatter = require('../../../lib/lint/formatter/cli');
@@ -33,7 +34,7 @@ function createReportInvalid() {
         evidence: 'e',
         reason: 'r'
     }]);
-    
+
     return report;
 }
 

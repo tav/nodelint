@@ -52,7 +52,7 @@ var BaseTest = vows.describe('Base class').addBatch({
         },
         'should throw error' : function (topic) {
             ['format', 'formatSimple', 'formatNormal', 'formatFull'].forEach(function (method) {
-                assert['throws'](function () {
+                assert.throws(function () {
                     topic[method]();
                 });
             });
