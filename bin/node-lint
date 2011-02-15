@@ -37,7 +37,7 @@ options = {
     parser: {
     }
 };
-configFile = process.env.NODELINT_CONFIG_FILE;
+configFile = process.env.NODELINT_CONFIG_FILE || path.join(__dirname, '..', 'etc', 'config.json');
   
 launcher = new Launcher();
 while (args.length !== 0) {
@@ -107,7 +107,6 @@ if (configFile) {
         launcher.printError('Parse Error in "' + configFile + '"');
     }
     
-    
     try {
         launcher.configure(source);
     } catch (e) {
@@ -115,6 +114,8 @@ if (configFile) {
         launcher.printError('Parse Error in "' + configFile + '"');
     }
 }
+
+
 
 try {
     launcher.configure(options);

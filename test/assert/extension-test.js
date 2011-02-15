@@ -1,4 +1,4 @@
-/*jslint indent:4 */
+/*jslint nodejs: true, indent:4 */
 var vows = require('vows');
 require('../../lib/assert/extension');
 
@@ -40,7 +40,7 @@ var AssertExtensionTest = vows.describe('assert module').addBatch({
             });
         },
         'should throw an error if file does not contains valid javascript' : function (topic) {
-            var fixtureFile = path.join(FIXTURE_PATH, 'invalid_test.js');
+            var fixtureFile = path.join(FIXTURE_PATH, 'invalid-test.js');
 
             assert.doesNotThrow(function () {
                 fs.realpathSync(fixtureFile);
@@ -50,7 +50,7 @@ var AssertExtensionTest = vows.describe('assert module').addBatch({
             });
         },
         'should not throw an error if wrong javascript is passed' : function (topic) {
-            var fixtureFile = path.join(FIXTURE_PATH, 'valid_test.js');
+            var fixtureFile = path.join(FIXTURE_PATH, 'valid-test.js');
             assert.doesNotThrow(function () {
                 topic(fixtureFile);
             });

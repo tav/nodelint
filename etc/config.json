@@ -6,13 +6,11 @@
     "formatter": {
         "type": "cli", //xml, json, vim, textmate
         "pretty": false,
-        "colors": true
+        "colors": "auto" //'auto', true, false
     },
-    
     
     //===========Parser============
     "parser": {
-        //"maxerr": 10000,
         //"adsafe": false, // if ADsafe should be enforced
         //"bitwise": true, // if bitwise operators should not be allowed
         //"browser": false, // if the standard browser globals should be predefined
@@ -47,6 +45,6 @@
         // the names of predefined global variables: the following are defined by nodejs itself
         //"predef": ["exports", "module", "require", "process", "__filename", "__dirname", "global", "console", "setInterval", "setTimeout", "clearInterval", "clearTimeout"],
 
-        //"node": false
+        //"nodejs": true
     }
 }

@@ -1,4 +1,4 @@
-/*jslint indent:4 */
+/*jslint nodejs: true, indent:4 */
 var vows = require('vows');
 var assert = require('assert');
 var fs = require('fs');
@@ -124,14 +124,14 @@ var ParserModuleTest = vows.describe('parser module').addBatch({
                     result : result
                 };
 
-                var validFile = path.join(FIXTURE_PATH, 'valid_test.js');
+                var validFile = path.join(FIXTURE_PATH, 'valid-test.js');
                 parser.isValidFile(validFile, null, function (error, result) {
                     report.validFile = {
                         error : error,
                         result : result
                     };
 
-                    var invalidFile = path.join(FIXTURE_PATH, 'invalid_test.js');
+                    var invalidFile = path.join(FIXTURE_PATH, 'invalid-test.js');
                     parser.isValidFile(invalidFile, null, function (error, result) {
                         report.invalidFile = {
                             error : error,
@@ -166,12 +166,12 @@ var ParserModuleTest = vows.describe('parser module').addBatch({
             });
         },
         'should return true if valid javascript file' : function (topic) {
-            var fixtureFile = path.join(FIXTURE_PATH, 'valid_test.js');
+            var fixtureFile = path.join(FIXTURE_PATH, 'valid-test.js');
             assert.equal(topic(fixtureFile), true);
             assert.equal(topic(fixtureFile), true);
         },
         'should return false if invalid javascript file' : function (topic) {
-            var fixtureFile = path.join(FIXTURE_PATH, 'invalid_test.js');
+            var fixtureFile = path.join(FIXTURE_PATH, 'invalid-test.js');
             assert.equal(topic(fixtureFile), false);
         }
     }
