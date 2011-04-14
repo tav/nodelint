@@ -1,54 +1,49 @@
 #!/usr/bin/env node
-var util = require(process.binding('natives').util ? 'util' : 'sys');
-var fs = require('fs');
-var path = require('path');
 
-var ROOT_PATH, LIB_PATH;
+/*jslint nodejs:true, indent:4 */
+var util = require(process.binding('natives').util ? 'util' : 'sys'),
+	fs = require('fs'),
+	path = require('path');
 
 //Build path
-ROOT_PATH = path.dirname(__dirname);
-LIB_PATH = path.join(path.dirname(__dirname), 'lib');
+var VERSION = '1.0.0',
+	ROOT_PATH = path.dirname(__dirname),
+	LIB_PATH = path.join(path.dirname(__dirname), 'lib');
 require.paths.unshift(LIB_PATH);
 
 
 //Include lint library
-var lint = require('lint');
-var Launcher = lint.Launcher;
-
-
-
-
-var usage, args, positionals, launcher, options, configFile;
+var lint = require('lint'),
+	Launcher = lint.Launcher;
 
 //called as main executable
+var usage = "Usage: " + process.ARGV[0] + " file.js [dir1 file2 dir2 ...] [options]\n" +
+	"Options:\n\n" +
+	"  --config=FILE     the path to a JSON file with JSLINT options\n" +
+	"  --formatter=FILE  optional path to a /dir/dir/file.hs file to customize the output\n" +
+	"  --no-colors       disable colors\n" +
+	"  --silent          disable console output\n" +
+	"  --pretty          enable pretty print for some format (XML, etc)\n" +
+	"  -h, --help        display this help and exit\n" +
+	"  -v, --version     output version information and exit", 
+	args = process.ARGV.splice(2), arg,
+	positionals = [], 
+	options = {
+	    formatter: {
+	    },
+	    parser: {
+	    }
+	},
+	configFile = process.env.NODELINT_CONFIG_FILE || path.join(__dirname, '..', 'etc', 'config.json'),
+	launcher = new Launcher();
 
-usage = "Usage: " + process.ARGV[0] + " file.js [dir1 file2 dir2 ...] [options]\n" +
-"Options:\n\n" +
-"  --config=FILE     the path to a JSON file with JSLINT options\n" +
-"  --formatter=FILE   optional path to a /dir/dir/file.hs file to customize the output\n" +
-"  -h, --help        display this help and exit\n" +
-"  -v, --version     output version information and exit";
 
-args = process.ARGV.splice(2);
-positionals = [];
-options = {
-    formatter: {
-    },
-    parser: {
-    }
-};
-configFile = process.env.NODELINT_CONFIG_FILE || path.join(__dirname, '..', 'etc', 'config.json');
-  
-launcher = new Launcher();
 while (args.length !== 0) {
     arg = args.shift();
     switch (arg) {
     case '-v':
     case '--version':
-        var content, pkg;
-        content = fs.readFileSync(path.join(__filename, '..', '..', '..', 'package.json'), 'utf8');
-        pkg = JSON.parse(content);
-        util.puts(pkg.version);
+        util.puts(VERSION);
         process.exit(0);
         break;
     case '-h':
