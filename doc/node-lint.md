@@ -146,12 +146,12 @@ Then the final options will be:
 ## AUTHORS
 
 Originally written by Tav and other node-lint contributors.
-Forked by as-jpolo. 
+Forked by jpolo. 
 Contributors list: <http://github.com/tav/nodelint/contributors>.
 
 ## REPORTING BUGS
 
-Report node-lint bugs to <http://github.com/as-jpolo/node-lint/issues>.
+Report node-lint bugs to <http://github.com/jpolo/node-lint/issues>.
 
 ## COPYRIGHT
 
