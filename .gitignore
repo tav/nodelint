@@ -1,5 +1,8 @@
 # ignore temp files
-
 *~
 .*.swp
 .DS_Store
+# ignore IDE files
+.idea
+.project
+.settings
