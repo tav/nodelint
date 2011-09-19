@@ -8,9 +8,9 @@
  * See the README.md for full credits of the awesome contributors!
  *
  */
- 
+
 /*global JSLINT, options */
-/*jslint evil: true, regexp: false */
+/*jslint evil: true */
 
 (function () {
   var fs = require('fs'),
@@ -41,7 +41,7 @@
         len = results.length,
         str = '',
         error;
-        
+
     for (i = 0; i < len; i += 1) {
       error = results[i].error;
       str += error_prefix + results[i].file  + ', line ' + error.line +
@@ -56,12 +56,12 @@
 // -----------------------------------------------------------------------------
 // load jslint itself and set the path to the default config file
 // -----------------------------------------------------------------------------
-  
+
   SCRIPT_DIRECTORY = path.dirname(fs.realpathSync(__filename));
   DEFAULT_CONFIG_FILE = path.join(SCRIPT_DIRECTORY, 'config.js');
 
   eval(fs.readFileSync(path.join(SCRIPT_DIRECTORY, 'jslint/jslint.js'), 'utf8'));
-  
+
 // -----------------------------------------------------------------------------
 // skript main funktion
 // -----------------------------------------------------------------------------
@@ -73,21 +73,21 @@
         error_suffix,
         option_name,
         real_options;
-        
+
     if (!files.length) {
       sys.puts(usage);
       return 1;
     }
-    
+
     eval(fs.readFileSync(default_config_file, 'utf8'));
-    
+
     if (typeof options === 'undefined') {
       sys.puts("Error: there's no `options` variable in the default config file.");
       return 1;
     }
-    
+
     real_options = options;
-    
+
     if (typeof config_file !== 'undefined') {
       eval(fs.readFileSync(config_file, 'utf8'));
 
@@ -95,21 +95,21 @@
         sys.puts("Error: there's no `options` variable in the config file.");
         return 1;
       }
-      
+
       for (option_name in options) {
         if (typeof option_name === 'string') {
           real_options[option_name] = options[option_name];
         }
       }
     }
-    
+
     if (typeof reporter_file !== 'undefined') {
       eval(fs.readFileSync(reporter_file, 'utf8'));
     }
-    
+
     error_prefix = real_options.error_prefix;
     error_suffix = real_options.error_suffix;
-    
+
     files.forEach(function (file) {
       var source,
           i,
@@ -140,9 +140,9 @@
         return;
       }
     });
-    
+
     reporter(results, error_prefix, error_suffix);
-    return retval; 
+    return retval;
   }
 
   // based on mikeal/node-utils' walkSync
@@ -163,17 +163,17 @@
       walkDir(abspath, callback);
     });
   }
-  
+
 // -----------------------------------------------------------------------------
 // run the file as a script if called directly, i.e. not imported via require()
 // -----------------------------------------------------------------------------
 
   params = process.ARGV.splice(2);
   files = [];
-   
+
   // a very basic pseudo --options parser
   params.forEach(function (param) {
-    var content, pkg, stat;
+    var content, pkg, stat, i;
     if (param.slice(0, 9) === "--config=") {
       config_file = param.slice(9);
     } else if (param === '--config') {
@@ -199,8 +199,8 @@
       stat = fs.statSync(param);
       if (stat.isDirectory()) {
         walkDir(param, function (base, dirs, names) {
-          for (var i = 0, ln = names.length; i < ln; i += 1) {
-            if (names[i].match(/.js$/)) {
+          for (i = 0, ln = names.length; i < ln; i += 1) {
+            if (names[i].match(/\.js$/)) {
               files.push(path.join(base, names[i]));
             }
           }
@@ -210,7 +210,8 @@
       }
     }
   });
-  
+
   process.exit(lint(files, DEFAULT_CONFIG_FILE, config_file, reporter_file));
-  
+
 }());
+

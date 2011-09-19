@@ -49,7 +49,10 @@ test:
 	nodeunit test
 
 lint:
-	./nodelint ./nodelint ./config.js ./package.json ./examples/reporters/ ./examples/textmate/ ./examples/vim/ ./test/
+	./nodelint ./nodelint ./config.js ./examples/reporters/ ./examples/textmate/ ./examples/vim/ ./test/
+
+lint-package-json:
+	./nodelint ./package.json
 
 doc: man1 $(DOCS)
 	@true

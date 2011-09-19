@@ -5,7 +5,9 @@
  * If there are no errors, nothing will happen.
  *
  * The Command:
- * node "/path/to/nodelint/nodelint" "$TM_FILEPATH" --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/summary_reporter.js"
+ * node "/path/to/nodelint/nodelint" "$TM_FILEPATH" \
+ *     --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" \
+ *     --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/summary_reporter.js"
  *
  * Invoked by "⌘S"
  * @author Matthew Kitt
@@ -15,7 +17,7 @@ var sys = require('sys');
 function reporter(results) {
   var len = results.length,
       output = '',
-      
+
   printer = {
     getOutput: function () {
       var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
@@ -38,7 +40,7 @@ function reporter(results) {
       return output;
     }
   };
-      
+
   if (len > 0 && len < 2) {
     output += printer.getOutput(results);
   }

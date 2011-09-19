@@ -1,14 +1,11 @@
 var spawn = require('child_process').spawn;
 
 
-exports.VariousIndents = function (test) {
+exports.NodePredefines = function (test) {
   test.expect(2);
 
   var
-    child = spawn('./nodelint',
-                  [__dirname + '/fixtures/node-4-space-indent.js',
-                   __dirname + '/fixtures/node-2-space-indent.js',
-                   __dirname + '/fixtures/node-4-space-indent.js']),
+    child = spawn('./nodelint', [__dirname + '/fixtures/nodejs-predefines.js']),
     stdout_output = '',
     stderr_output = '';
 
@@ -21,8 +18,9 @@ exports.VariousIndents = function (test) {
   });
 
   child.addListener('exit', function (code) {
-    test.equal(code, 0, 'ok');
-    test.equal(stderr_output, '0 errors\n', 'passed');
+    test.equal(code, 0, 'nodejs-predefines.js ok');
+    test.equal(stderr_output, '0 errors\n', 'nodejs-predefines.js passed');
     test.done();
   });
 };
+
