@@ -45,8 +45,8 @@ clean:
 	rm -rf $(BUILDDIR) stamp-build
 
 test:
-	@which nodeunit > /dev/null 2>&1 || echo "Run 'npm install nodeunit' before run this"
-	nodeunit test
+	@ll ./node_modules/nodeunit/bin/nodeunit > /dev/null 2>&1 || echo "Run 'npm install nodeunit' before run this"
+	./node_modules/nodeunit/bin/nodeunit test
 
 lint:
 	./nodelint ./nodelint ./config.js ./examples/reporters/ ./examples/textmate/ ./examples/vim/ ./test/
@@ -62,6 +62,6 @@ man1:
 
 # use `npm install ronn` for this to work.
 man1/%.1: doc/%.md
-	ronn --roff $< > $@
+	./node_modules/ronn/bin/ronn.js --roff $< > $@
 
 .PHONY: test install uninstall build all

@@ -146,11 +146,11 @@ Then the final options will be:
 ## AUTHORS
 
 Written by Tav and other nodelint contributors.  
-Contributors list: <http://github.com/tav/nodelint/contributors>.
+Contributors list: <https://github.com/tav/nodelint/contributors>.
 
 ## REPORTING BUGS
 
-Report nodelint bugs to <http://github.com/tav/nodelint/issues>.
+Report nodelint bugs to <https://github.com/tav/nodelint/issues>.
 
 ## COPYRIGHT
 

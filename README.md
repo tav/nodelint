@@ -8,11 +8,11 @@ nodelint
 
 - **nodelint** lets you run JSLint from the command line.
 
-- nodelint currently supports node version 0.2.1
+- nodelint currently supports node version 0.4.x
 
 [Node]: http://nodejs.org/
 [V8]: http://code.google.com/p/v8/
-[JSLint]: http://www.jslint.com/lint.html
+[JSLint]: https://github.com/douglascrockford/JSLint
 
 
 installation
@@ -156,6 +156,8 @@ credits
 
 - [Cliffano Subagio], added npm installation support, XML reporter, and directory param support.
 
+- [Clemens Akens], updated to latest JSLint from Crockford repo
+
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
@@ -166,6 +168,7 @@ credits
 [evangineer]: http://github.com/evangineer
 [mranney]: http://github.com/mranney
 [Cliffano Subagio]: http://blog.cliffano.com
+[Clemens Akens]: https://github.com/clebert
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
 [wiki]: http://github.com/tav/nodelint/wiki
