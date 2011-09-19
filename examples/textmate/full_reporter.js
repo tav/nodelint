@@ -4,7 +4,9 @@
  * The Command:
  * . "$TM_SUPPORT_PATH/lib/webpreview.sh"
  * html_header "JSLint Results"
- * node "/path/to/nodelint/nodelint" "$TM_FILEPATH" --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/full_reporter.js"
+ * node "/path/to/nodelint/nodelint" "$TM_FILEPATH" \
+ *     --config "$TM_BUNDLE_SUPPORT/bin/path/to/config.js" \
+ *     --reporter "$TM_BUNDLE_SUPPORT/bin/path/to/full_reporter.js"
  *
  * Invoked by "⌃⇧V"
  * @author Matthew Kitt
@@ -29,19 +31,19 @@ function reporter(results) {
     reason = error.reason;
     line = error.line;
     character = error.character;
-    output += '<li>' + 
-                '<a href="txmt://open?url=file://' + file + '&line=' + 
+    output += '<li>' +
+                '<a href="txmt://open?url=file://' + file + '&line=' +
                                 line + '&column=' + character + '">' +
                   '<strong>' + reason + '</strong>' +
-                  ' <em>line ' + line + 
+                  ' <em>line ' + line +
                   ', character ' + character + '</em>' +
                 '</a>' +
-                '<pre><code>' + 
+                '<pre><code>' +
                   (error.evidence || '').replace(error_regexp, "$1") +
                 '</pre></code>' +
               '</li>';
   }
-  
+
   html += '<html>' +
             '<head>' +
               '<style type="text/css">' +

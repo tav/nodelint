@@ -44,6 +44,16 @@ uninstall:
 clean:
 	rm -rf $(BUILDDIR) stamp-build
 
+test:
+	@which nodeunit > /dev/null 2>&1 || echo "Run 'npm install nodeunit' before run this"
+	nodeunit test
+
+lint:
+	./nodelint ./nodelint ./config.js ./examples/reporters/ ./examples/textmate/ ./examples/vim/ ./test/
+
+lint-package-json:
+	./nodelint ./package.json
+
 doc: man1 $(DOCS)
 	@true
 
