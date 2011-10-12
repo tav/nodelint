@@ -12,7 +12,7 @@
  * Invoked by "⌘S"
  * @author Matthew Kitt
  */
-var sys = require('sys');
+var util = require('util');
 
 function reporter(results) {
   var len = results.length,
@@ -47,6 +47,6 @@ function reporter(results) {
   output += len + ' error' + ((len === 1) ? '' : 's');
 
   if (len > 0) {
-    sys.puts(output);
+    util.puts(output);
   }
 }

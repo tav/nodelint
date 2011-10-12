@@ -2,9 +2,9 @@
 //
 //     $ nodelint path/to/file.js --reporter examples/reporters/summarize.js
 
-var sys = require('sys');
+var util = require('util');
 
 function reporter(results) {
   var len = results.length;
-  sys.puts(len + ' error' + ((len === 1) ? '' : 's'));
+  util.puts(len + ' error' + ((len === 1) ? '' : 's'));
 }
