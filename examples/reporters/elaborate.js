@@ -2,7 +2,7 @@
 //
 //     $ nodelint path/to/file.js --reporter examples/reporters/elaborate.js
 
-var sys = require('sys');
+var util = require('util');
 
 function reporter(results) {
 
@@ -25,9 +25,9 @@ function reporter(results) {
 
   if (len > 0) {
     str += len + ' error' + ((len === 1) ? '' : 's');
-    sys.error(str);
+    util.error(str);
   } else {
-    sys.puts('Lint free!');
+    util.puts('Lint free!');
   }
 
 }

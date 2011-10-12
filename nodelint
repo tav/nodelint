@@ -15,7 +15,7 @@
 (function () {
   var fs = require('fs'),
       path = require('path'),
-      sys = require('sys'),
+      util = require('util'),
       SCRIPT_DIRECTORY,
       DEFAULT_CONFIG_FILE,
       params,
@@ -50,7 +50,7 @@
               (error.evidence || '').replace(error_regexp, "$1") + '\n';
     }
     str += len + ' error' + ((len === 1) ? '' : 's');
-    sys.error(str);
+    util.error(str);
   }
 
 // -----------------------------------------------------------------------------
@@ -75,14 +75,14 @@
         real_options;
 
     if (!files.length) {
-      sys.puts(usage);
+      util.puts(usage);
       return 1;
     }
 
     eval(fs.readFileSync(default_config_file, 'utf8'));
 
     if (typeof options === 'undefined') {
-      sys.puts("Error: there's no `options` variable in the default config file.");
+      util.puts("Error: there's no `options` variable in the default config file.");
       return 1;
     }
 
@@ -92,7 +92,7 @@
       eval(fs.readFileSync(config_file, 'utf8'));
 
       if (typeof options === 'undefined') {
-        sys.puts("Error: there's no `options` variable in the config file.");
+        util.puts("Error: there's no `options` variable in the config file.");
         return 1;
       }
 
@@ -120,8 +120,8 @@
       try {
         source = fs.readFileSync(file, 'utf8');
       } catch (err) {
-        sys.puts("Error: Opening file <" + file + ">");
-        sys.puts(err + '\n');
+        util.puts("Error: Opening file <" + file + ">");
+        util.puts(err + '\n');
         retval = 1;
         return;
       }
@@ -190,10 +190,10 @@
       content = fs.readFileSync(
                          path.join(SCRIPT_DIRECTORY, 'package.json'), 'utf8');
       pkg = JSON.parse(content);
-      sys.puts(pkg.version);
+      util.puts(pkg.version);
       process.exit(0);
     } else if ((param === '--help') || (param === '-h')) {
-      sys.puts(usage);
+      util.puts(usage);
       process.exit(0);
     } else {
       stat = fs.statSync(param);

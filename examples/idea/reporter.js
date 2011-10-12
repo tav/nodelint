@@ -3,7 +3,7 @@
 // Only tested with RubyMine
 // For setup instructions see: https://github.com/tav/nodelint/wiki/Editor-and-IDE-integration
 
-var sys = require('sys');
+var util = require('util');
 
 function reporter(results) {
 
@@ -24,6 +24,6 @@ function reporter(results) {
         ' ' + error.reason + ' ' +
         (error.evidence || '').replace(error_regexp, "$1");
     }
-    sys.puts(str);
+    util.puts(str);
   }
 }
