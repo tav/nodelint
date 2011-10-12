@@ -23,6 +23,11 @@ npm:
     $ npm install nodelint
 
 
+If you clone nodelint from Github, you should init JSLint submodule:
+
+    $ git submodule init
+
+
 usage
 -----
 
