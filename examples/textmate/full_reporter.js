@@ -11,7 +11,7 @@
  * Invoked by "⌃⇧V"
  * @author Matthew Kitt
  */
-var sys = require('sys');
+var util = require('util');
 
 function reporter(results) {
   var error_regexp = /^\s*(\S*(\s+\S+)*)\s*$/,
@@ -66,5 +66,5 @@ function reporter(results) {
             '</body>' +
           '</html>';
 
-  sys.puts(html);
+  util.puts(html);
 }

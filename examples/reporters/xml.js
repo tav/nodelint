@@ -6,7 +6,7 @@
 // Hudson Violations Plugin http://wiki.hudson-ci.org/display/HUDSON/Violations+Plugin
 
 var path = require('path'),
-    sys = require('sys');
+    util = require('util');
 
 function reporter(results) {
 
@@ -28,6 +28,6 @@ function reporter(results) {
   }
 
   xml += '</jslint>';
-  sys.puts(xml);
+  util.puts(xml);
 
 }
