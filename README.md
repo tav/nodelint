@@ -8,7 +8,7 @@ nodelint
 
 - **nodelint** lets you run JSLint from the command line.
 
-- nodelint currently supports node version 0.4.x
+- nodelint currently supports node version 0.4.x and tested with 0.5.9 so should run on 0.6.x
 
 [Node]: http://nodejs.org/
 [V8]: http://code.google.com/p/v8/
@@ -25,7 +25,7 @@ npm:
 
 If you clone nodelint from Github, you should init JSLint submodule:
 
-    $ git submodule init
+    $ git submodule update --init
 
 
 usage
