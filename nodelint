@@ -13,7 +13,8 @@
 /*jslint evil: true */
 
 (function () {
-  var fs = require('fs'),
+  var f = require('file'),
+      fs = require('fs'),
       path = require('path'),
       util = require('util'),
       SCRIPT_DIRECTORY,
@@ -145,25 +146,6 @@
     return retval;
   }
 
-  // based on mikeal/node-utils' walkSync
-  function walkDir(base, callback) {
-    var filenames = fs.readdirSync(base),
-      coll = filenames.reduce(function (acc, name) {
-      var abspath = path.join(base, name);
-      if (fs.statSync(abspath).isDirectory()) {
-        acc.dirs.push(name);
-      } else {
-        acc.names.push(name);
-      }
-      return acc;
-    }, {"names": [], "dirs": []});
-    callback(base, coll.dirs, coll.names);
-    coll.dirs.forEach(function (d) {
-      var abspath = path.join(base, d);
-      walkDir(abspath, callback);
-    });
-  }
-
 // -----------------------------------------------------------------------------
 // run the file as a script if called directly, i.e. not imported via require()
 // -----------------------------------------------------------------------------
@@ -173,7 +155,7 @@
 
   // a very basic pseudo --options parser
   params.forEach(function (param) {
-    var content, pkg, stat, i;
+    var content, pkg, stat;
     if (param.slice(0, 9) === "--config=") {
       config_file = param.slice(9);
     } else if (param === '--config') {
@@ -198,12 +180,12 @@
     } else {
       stat = fs.statSync(param);
       if (stat.isDirectory()) {
-        walkDir(param, function (base, dirs, names) {
-          for (i = 0, ln = names.length; i < ln; i += 1) {
-            if (names[i].match(/\.js$/)) {
-              files.push(path.join(base, names[i]));
+        f.walkSync(param, function (base, dirs, names) {
+          names.forEach(function (name) {
+            if (name.match(/.js$/)) {
+              files.push(path.join(base, name));
             }
-          }
+          });
         });
       } else {
         files.push(param);
