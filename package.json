@@ -23,6 +23,9 @@
     "type": "git",
     "url": "git://github.com/tav/nodelint.git"
   },
+  "dependencies": {
+    "file": ">=0.1.1"
+  },
   "bugs": { "web": "https://github.com/tav/nodelint/issues" },
   "licenses": {
     "type": "Public Domain"
