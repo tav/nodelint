@@ -163,6 +163,8 @@
     } else if (config_param_found) {
       config_file = param;
       config_param_found = false;
+    } else if (param === '--xml-reporter') {
+      reporter_file = path.join(__dirname, 'examples/reporters/xml.js');
     } else if (param === '--reporter') {
       reporter_param_found = true;
     } else if (reporter_param_found) {
