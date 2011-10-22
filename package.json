@@ -26,7 +26,7 @@
   "dependencies": {
     "file": ">=0.1.1"
   },
-  "bugs": { "web": "https://github.com/tav/nodelint/issues" },
+  "bugs": { "url": "https://github.com/tav/nodelint/issues" },
   "licenses": {
     "type": "Public Domain"
   },
