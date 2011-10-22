@@ -150,7 +150,7 @@
 // run the file as a script if called directly, i.e. not imported via require()
 // -----------------------------------------------------------------------------
 
-  params = process.ARGV.splice(2);
+  params = process.argv.splice(2);
   files = [];
 
   // a very basic pseudo --options parser
