@@ -163,6 +163,8 @@ credits
 
 - [Clemens Akens], updated to latest JSLint from Crockford repo
 
+- [Paul Armstrong], updates to reflect Node.js and npm API changes
+
 [tav]: http://tav.espians.com
 [felixge]: http://debuggable.com
 [Douglas Crockford]: http://www.crockford.com
@@ -174,6 +176,7 @@ credits
 [mranney]: http://github.com/mranney
 [Cliffano Subagio]: http://blog.cliffano.com
 [Clemens Akens]: https://github.com/clebert
+[Paul Armstrong]: https://github.com/paularmstrong
 
 [JSLINT's Options]: http://www.jslint.com/lint.html#options
 [wiki]: http://github.com/tav/nodelint/wiki
