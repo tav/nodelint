@@ -4,6 +4,7 @@
 .DS_Store
 dist/
 stamp-build
+stamp-dependencies
 # ignore IDE files
 .idea
 .project

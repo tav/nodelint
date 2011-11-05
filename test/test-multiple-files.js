@@ -21,6 +21,10 @@ exports.VariousIndents = function (test) {
   });
 
   child.addListener('exit', function (code) {
+    var node_deprecated_warning = "The \"sys\" module is now called \"util\". "
+                                + "It should have a similar interface.\n";
+    stderr_output = stderr_output.replace(node_deprecated_warning, "");
+
     test.equal(code, 0, 'ok');
     test.equal(stderr_output, '0 errors\n', 'passed');
     test.done();

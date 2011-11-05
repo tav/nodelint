@@ -18,6 +18,10 @@ exports.NodePredefines = function (test) {
   });
 
   child.addListener('exit', function (code) {
+    var node_deprecated_warning = "The \"sys\" module is now called \"util\". "
+                                + "It should have a similar interface.\n";
+    stderr_output = stderr_output.replace(node_deprecated_warning, "");
+
     test.equal(code, 0, 'nodejs-predefines.js ok');
     test.equal(stderr_output, '0 errors\n', 'nodejs-predefines.js passed');
     test.done();

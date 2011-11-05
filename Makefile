@@ -1,3 +1,4 @@
+#!/bin/sh
 PACKAGE = nodelint
 NODEJS = $(if $(shell test -f /usr/bin/nodejs && echo "true"),nodejs,node)
 
@@ -44,16 +45,22 @@ uninstall:
 clean:
 	rm -rf $(BUILDDIR) stamp-build
 
+dependencies: stamp-dependencies
+
+stamp-dependencies:
+	touch $@;
+	npm install
+
 ./node_modules/.bin/nodeunit:
 	npm install nodeunit
 
-test: ./node_modules/.bin/nodeunit ./test/*.js
+test: dependencies ./node_modules/.bin/nodeunit ./test/*.js
 	./node_modules/.bin/nodeunit ./test/*.js
 
-lint:
+lint: dependencies
 	./nodelint ./nodelint ./config.js ./examples/reporters/ ./examples/textmate/ ./examples/vim/ ./test/
 
-lint-package-json:
+lint-package-json: dependencies
 	./nodelint ./package.json
 
 doc: man1 $(DOCS)

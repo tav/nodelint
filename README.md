@@ -105,11 +105,11 @@ has a function in it named `reporter`:
 
 `example-reporter.js`:
 
-    var sys = require('sys');
+    var util = require('util');
 
     function reporter(results) {
         var len = results.length;
-        sys.puts(len + ' error' + ((len === 1) ? '' : 's'));
+        util.puts(len + ' error' + ((len === 1) ? '' : 's'));
     }
 
 Then when you run nodelint from the command line, pass in the customized

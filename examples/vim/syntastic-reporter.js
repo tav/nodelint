@@ -2,7 +2,7 @@
 // Reporter for working with the vim syntastic plugin
 // See http://gist.github.com/629349 for the vim script
 
-var sys = require('sys');
+var util = require('util');
 
 function reporter(results) {
 
@@ -25,6 +25,6 @@ function reporter(results) {
 
       str += (i === len - 1) ? '' : '\n';
     }
-    sys.puts(str);
+    util.puts(str);
   }
 }
