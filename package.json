@@ -2,7 +2,7 @@
   "name": "nodelint",
   "description": "The nodelint command line tool allows you to check for problems using JSLint. You can specify your own --config file to use alternate JSLint options and your own --reporter file if you want to customise the generated output.",
   "keywords": ["lint", "jslint", "nodelint", "code quality"],
-  "version": "0.5.1",
+  "version": "0.5.2",
   "homepage": "https://github.com/tav/nodelint",
   "author": "tav <tav@espians.com> (https://tav.espians.com)",
   "maintainers": [
