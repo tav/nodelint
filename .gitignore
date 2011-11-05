@@ -5,6 +5,7 @@
 dist/
 stamp-build
 stamp-dependencies
+stamp-devdependencies
 # ignore IDE files
 .idea
 .project

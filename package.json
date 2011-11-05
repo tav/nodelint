@@ -32,6 +32,10 @@
   "dependencies": {
     "file": ">=0.1.1"
   },
+  "devDependencies": {
+    "nodeunit": ">=0.6.2",
+    "ronn": ">=0.3.7"
+  },
   "bugs": { "url": "https://github.com/tav/nodelint/issues" },
   "licenses": {
     "type": "Public Domain"

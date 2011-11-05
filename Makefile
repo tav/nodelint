@@ -48,22 +48,26 @@ clean:
 dependencies: stamp-dependencies
 
 stamp-dependencies:
-	touch $@;
+	touch stamp-dependencies;
 	npm install
 
-./node_modules/.bin/nodeunit:
-	npm install nodeunit
+devdependencies: stamp-devdependencies
 
-test: dependencies ./node_modules/.bin/nodeunit ./test/*.js
+stamp-devdependencies:
+	touch stamp-devdependencies;
+	touch stamp-dependencies;
+	npm install --dev
+
+test: devdependencies
 	./node_modules/.bin/nodeunit ./test/*.js
 
-lint: dependencies
+lint: devdependencies
 	./nodelint ./nodelint ./config.js ./examples/reporters/ ./examples/textmate/ ./examples/vim/ ./test/
 
-lint-package-json: dependencies
+lint-package-json: devdependencies
 	./nodelint ./package.json
 
-doc: man1 $(DOCS)
+doc: devdependencies man1 $(DOCS)
 	@true
 
 man1:
@@ -71,6 +75,6 @@ man1:
 
 # use `npm install ronn` for this to work.
 man1/%.1: doc/%.md
-	./node_modules/ronn/bin/ronn.js --roff $< > $@
+	./node_modules/.bin/ronn --roff $< > $@
 
 .PHONY: test install uninstall build all
