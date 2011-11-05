@@ -3,10 +3,7 @@
  *
  * Changes released into the Public Domain by tav <tav@espians.com>
  * Options support added by Corey Hart <corey@codenothing.com>
- *
  */
-
-// set your options here
 
 var options = {
     "adsafe"     : false, // if ADsafe should be enforced
@@ -18,24 +15,24 @@ var options = {
     "css"        : false, // if CSS workarounds should be tolerated
     "debug"      : false, // if debugger statements should be allowed
     "devel"      : false, // if logging should be allowed (console, alert, etc.)
-    "eqeq"       : false, // if the == and != operators should be tolerated
+    "eqeq"       : false, // if the == should be allowed
     "es5"        : true,  // if ES5 syntax should be allowed
     "evil"       : false, // if eval should be allowed
-    "forin"      : true, // true if unfiltered for in statements should be allowed
+    "forin"      : true,  // if for in statements need not filter
     "fragment"   : false, // if HTML fragments should be allowed
     "indent"     : 2,     // set the expected indentation level
     "maxerr"     : 50,    // the maximum number of errors to allow
     "maxlen"     : 100,   // the maximum length of a source line
-    "newcap"     : false, // true if Initial Caps with constructor functions is optional
+    "newcap"     : false, // if constructor names capitalization is ignored
     "node"       : true,  // if Node.js globals should be predefined
     "nomen"      : true,  // true, if names may have dangling _
     "on"         : false, // if HTML event handlers should be allowed
     "passfail"   : false, // if the scan should stop on first error
-    "plusplus"   : true,  // if increment/decrement should not be allowed
+    "plusplus"   : false, // if increment/decrement should be allowed
     "properties" : false, // if all property names must be declared with /*properties*/
-    "regexp"     : true,  // true if . and [^...] should be allowed in RegExp literals
+    "regexp"     : true,  // if the . should be allowed in regexp literals
     "rhino"      : false, // if the Rhino environment globals should be predefined
-    "undef"      : true,  // if variables should be declared before used
+    "undef"      : false, // if variables can be declared out of order
     "unparam"    : true,  // if unused parameters should be tolerated
     "safe"       : false, // if use of some browser features should be restricted
     "sloppy"     : true,  // if the 'use strict'; pragma is optional
@@ -46,10 +43,9 @@ var options = {
     "windows"    : false, // if MS Windows-specific globals should be predefined
 
     // the names of predefined global variables:
-    "predef"       : [],
+    "predef"     : [],
 
     // customise the error reporting -- the following colours the text red
     "error_prefix" : "\u001b[1m",
     "error_suffix" : ":\u001b[0m "
 };
-
