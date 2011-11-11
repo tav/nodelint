@@ -62,7 +62,7 @@ test: devdependencies
 	./node_modules/.bin/nodeunit ./test/*.js
 
 lint: devdependencies
-	./nodelint ./nodelint ./config.js ./examples/reporters/ ./examples/textmate/ ./examples/vim/ ./test/
+	./nodelint ./nodelint ./config.js ./lib/ ./test/
 
 lint-package-json: devdependencies
 	./nodelint ./package.json

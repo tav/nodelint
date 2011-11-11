@@ -1,7 +1,7 @@
 nodelint
 --------
 
-- [Node] is a [V8] based framework for writing Javascript applications outside
+- [Node.js] is a [V8] based framework for writing Javascript applications outside
   the browser.
 
 - [JSLint] is a code quality tool that checks for problems in Javascript programs.
@@ -10,7 +10,7 @@ nodelint
 
 - nodelint currently supports node version 0.4.x and tested with 0.5.9 so should run on 0.6.x
 
-[Node]: http://nodejs.org/
+[Node.js]: http://nodejs.org/
 [V8]: http://code.google.com/p/v8/
 [JSLint]: https://github.com/douglascrockford/JSLint
 
@@ -85,7 +85,9 @@ Then the final options used will be:
         error_suffix : ":\u001b[0m "
     };
 
-Take a look at [JSLint's Options] to see what to put in the `options` variable.
+Take a look at [JSLint's options] to see what to put in the `options` variable.
+
+[JSLint's options]: http://www.jslint.com/lint.html#options
 
 
 reporters
@@ -177,6 +179,3 @@ credits
 [Cliffano Subagio]: http://blog.cliffano.com
 [Clemens Akens]: https://github.com/clebert
 [Paul Armstrong]: https://github.com/paularmstrong
-
-[JSLINT's Options]: http://www.jslint.com/lint.html#options
-[wiki]: http://github.com/tav/nodelint/wiki
