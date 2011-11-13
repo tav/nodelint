@@ -114,7 +114,6 @@
           }
         }
         retval = 2;
-        return;
       }
     });
 
@@ -132,7 +131,7 @@
 
   // a very basic pseudo --options parser
   params.forEach(function (param) {
-    var content, pkg, stat;
+    var content, pkg, stat, reporter_file_for_forin_loop;
     if (param.slice(0, 9) === "--config=") {
       config_file = param.slice(9);
     } else if (param === '--config') {
@@ -151,13 +150,13 @@
       reporter_param_found = false;
     } else if (param === '--list-reporters') {
       util.puts('Build-in reporters: ');
-      for (reporter_file in builtin_reporters) {
-        if (builtin_reporters[reporter_file].info) {
-          util.puts('  * ' + reporter_file + ': ' + builtin_reporters[reporter_file].info);
+      for (reporter_file_for_forin_loop in builtin_reporters) {
+        if (builtin_reporters[reporter_file_for_forin_loop].info) {
+          util.puts('  * ' + reporter_file_for_forin_loop
+                  + ': ' + builtin_reporters[reporter_file_for_forin_loop].info);
         } else {
-          util.puts('  * ' + reporter_file);
+          util.puts('  * ' + reporter_file_for_forin_loop);
         }
-
       }
       process.exit(0);
     } else if ((param === '--version') || (param === '-v')) {
