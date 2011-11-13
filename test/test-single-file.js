@@ -1,79 +1,66 @@
-var spawn = require('child_process').spawn;
+/*
+ * Nodelint tests for single file linting
+ *
+ * Released into the Public Domain by tav <tav@espians.com>
+ * See the README.md for full credits of the awesome contributors!
+ */
 
-var node_deprecated_warning = "The \"sys\" module is now called \"util\". "
-                              + "It should have a similar interface.\n";
+/**
+ * Module dependencies
+ */
+var helper = require('./helper');
 
+/**
+ * Test for 2-space indent file
+ *
+ * @param test
+ */
 exports.Node2SpaceIndent = function (test) {
-  test.expect(2);
-
-  var
-    child = spawn('./nodelint', [__dirname + '/fixtures/node-2-space-indent.js']),
-    stdout_output = '',
-    stderr_output = '';
-
-  child.stdout.addListener('data', function (data) {
-    stdout_output += data;
-  });
-
-  child.stderr.addListener('data', function (data) {
-    stderr_output += data;
-  });
-
-  child.addListener('exit', function (code) {
-    stderr_output = stderr_output.replace(node_deprecated_warning, "");
-
-    test.equal(code, 0, 'node-2-space-indent.js ok');
-    test.equal(stderr_output, '0 errors\n', 'node-2-space-indent.js passed');
-    test.done();
-  });
+  helper.testConsoleOutput(
+    './nodelint',
+    [__dirname + '/fixtures/node-2-space-indent.js'],
+    {
+      stdout: '0 errors\n',
+      stderr: '',
+      exitCode: 0
+    },
+    test
+  );
 };
 
+/**
+ * Test for s-space indent file
+ *
+ * @param test
+ */
 exports.Node4SpaceIndent = function (test) {
-  test.expect(2);
-
-  var
-    child = spawn('./nodelint', [__dirname + '/fixtures/node-4-space-indent.js']),
-    stdout_output = '',
-    stderr_output = '';
-
-  child.stdout.addListener('data', function (data) {
-    stdout_output += data;
-  });
-
-  child.stderr.addListener('data', function (data) {
-    stderr_output += data;
-  });
-
-  child.addListener('exit', function (code) {
-    stderr_output = stderr_output.replace(node_deprecated_warning, "");
-
-    test.equal(code, 0, 'node-4-space-indent.js ok');
-    test.equal(stderr_output, '0 errors\n', 'node-4-space-indent.js passed');
-    test.done();
-  });
+  helper.testConsoleOutput(
+    './nodelint',
+    [__dirname + '/fixtures/node-4-space-indent.js'],
+    {
+      stdout: '0 errors\n',
+      stderr: '',
+      exitCode: 0
+    },
+    test
+  );
 };
 
+
+/**
+ * Test for 4-space indent file with browser js
+ *
+ * @param test
+ */
 exports.Browser4SpaceIndent = function (test) {
-  test.expect(2);
-
-  var
-    child = spawn('./nodelint', [__dirname + '/fixtures/browser-4-space-indent.js']),
-    stdout_output = '',
-    stderr_output = '';
-
-  child.stdout.addListener('data', function (data) {
-    stdout_output += data;
-  });
-
-  child.stderr.addListener('data', function (data) {
-    stderr_output += data;
-  });
-
-  child.addListener('exit', function (code) {
-    stderr_output = stderr_output.replace(node_deprecated_warning, "");
-
-    test.equal(code, 0, 'browser-4-space-indent.js ok');
-    test.equal(stderr_output, '0 errors\n', 'browser-4-space-indent.js passed');
-    test.done();
-  });
+  helper.testConsoleOutput(
+    './nodelint',
+    [__dirname + '/fixtures/browser-4-space-indent.js'],
+    {
+      stdout: '0 errors\n',
+      stderr: '',
+      exitCode: 0
+    },
+    test
+  );
 };

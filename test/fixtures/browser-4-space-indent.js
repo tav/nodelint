@@ -1,4 +1,4 @@
-/*jslint indent: 4, browser: true*/
+/*jslint indent: 4, node: false, browser: true*/
 
 var userAgent = navigator.userAgent;
 

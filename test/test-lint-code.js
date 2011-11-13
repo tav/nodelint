@@ -1,5 +1,5 @@
 /*
- * Nodelint tests for both files and directories
+ * Nodelint code style test
  *
  * Released into the Public Domain by tav <tav@espians.com>
  * See the README.md for full credits of the awesome contributors!
@@ -11,23 +11,19 @@
 var helper = require('./helper');
 
 /**
- * Test for both files and directories
+ * Lint nodelint own code
  *
  * @param test
  */
-exports.DirAndFile = function (test) {
+exports.MakeLint = function (test) {
   helper.testConsoleOutput(
-    './nodelint',
-    [
-      __dirname + '/fixtures/',
-      __dirname + '/test-dir-and-file.js'
-    ],
+    'make',
+    ['lint'],
     {
-      stdout: '0 errors\n',
+      stdout: './nodelint ./nodelint ./config.js ./lib/ ./test/\n0 errors\n',
       stderr: '',
       exitCode: 0
     },
     test
   );
 };
-

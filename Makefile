@@ -59,7 +59,7 @@ stamp-devdependencies:
 	npm install --dev
 
 test: devdependencies
-	./node_modules/.bin/nodeunit ./test/*.js
+	./node_modules/.bin/nodeunit ./test/test-*.js
 
 lint: devdependencies
 	./nodelint ./nodelint ./config.js ./lib/ ./test/
