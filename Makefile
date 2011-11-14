@@ -23,8 +23,8 @@ all: build doc
 
 build: stamp-build
 
-stamp-build: jslint/jslint.js nodelint config.js
-	touch $@;
+stamp-build: dependencies jslint/jslint.js nodelint config.js
+	touch stamp-build;
 	cp $^ $(BUILDDIR);
 	perl -pi -e 's{^\s*SCRIPT_DIRECTORY =.*?\n}{}ms' $(BUILDDIR)/nodelint
 	perl -pi -e 's{path\.join\(SCRIPT_DIRECTORY, '\''config.js'\''\)}{"$(ETCDIR)/nodelint.conf"}' $(BUILDDIR)/nodelint
@@ -50,8 +50,9 @@ dependencies: stamp-dependencies
 stamp-dependencies:
 	touch stamp-dependencies;
 	npm install
+	git submodule update --init --recursive
 
-devdependencies: stamp-devdependencies
+devdependencies: dependencies stamp-devdependencies
 
 stamp-devdependencies:
 	touch stamp-devdependencies;

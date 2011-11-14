@@ -21,14 +21,15 @@
     "Nathan Landis (https://github.com/my8bird)",
     "Clemens Akens (https://github.com/clebert)"
   ],
-  "bin": {
-    "nodelint": "./nodelint"
-  },
-  "directories": { "doc": "./doc", "man": "./man1" },
   "repository": {
     "type": "git",
     "url": "git://github.com/tav/nodelint.git"
   },
+  "bugs": { "url": "https://github.com/tav/nodelint/issues" },
+  "bin": {
+    "nodelint": "./nodelint"
+  },
+  "directories": { "doc": "./doc", "man": "./man1" },
   "dependencies": {
     "file": ">=0.1.1"
   },
@@ -36,9 +37,12 @@
     "nodeunit": ">=0.6.2",
     "ronn": ">=0.3.7"
   },
-  "bugs": { "url": "https://github.com/tav/nodelint/issues" },
+  "engines": { "node": ">=0.4" },
+  "scripts": {
+     "test": "make test",
+     "prepublish" : "make doc"
+  },
   "licenses": {
     "type": "Public Domain"
-  },
-  "engines": { "node": ">=0.4" }
+  }
 }

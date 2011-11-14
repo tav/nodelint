@@ -17,10 +17,10 @@ var helper = require('./helper');
  */
 exports.MakeLint = function (test) {
   helper.testConsoleOutput(
-    'make',
-    ['lint'],
+    './nodelint',
+    ['./nodelint', './config.js', './lib/', './test/'],
     {
-      stdout: './nodelint ./nodelint ./config.js ./lib/ ./test/\n0 errors\n',
+      stdout: '0 errors\n',
       stderr: '',
       exitCode: 0
     },
