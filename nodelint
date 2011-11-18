@@ -139,8 +139,6 @@
     } else if (config_param_found) {
       config_file = param;
       config_param_found = false;
-    } else if (param === '--xml-reporter') {
-      reporter_file = 'xml';
     } else if (param.slice(0, 11) === "--reporter=") {
       reporter_file = param.slice(11);
     } else if (param === '--reporter') {
