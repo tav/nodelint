@@ -11,7 +11,7 @@ var path = require('path'),
 function reporter(results) {
 
   function escape(str) {
-    return (str) ? str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') : '';
+    return (str) ? str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') : '';
   }
 
   var i, error, len, file,
