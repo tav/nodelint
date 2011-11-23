@@ -31,31 +31,26 @@ If you clone nodelint from Github, you should init JSLint submodule:
 usage
 -----
 
-You can use `nodelint` directly if you have `node` in your $PATH:
-
-    $ ./nodelint path/to/your/file.js
-
-Or if you installed it using npm:
+You can use `nodelint` directly if you have `node` in your $PATH,
+or if you installed it using `npm -g`:
 
     $ nodelint path/to/your/file.js
 
 Otherwise, you need to run it with node:
 
-    $ node nodelint path/to/your/file.js
+    $ node path/to/nodelint path/to/your/file.js
 
 You can also specify a directory param and nodelint will find all .js files under that directory and its subdirectories:
 
-    $ node nodelint dir1/ dir2/
+    $ node path/to/nodelint dir1/ dir2/
 
 Enjoy!
 
 
-config
-------
+configuration
+-------------
 
-You can set JSLint options by modifying the default `config.js` file or even
-override the default config by passing another config file with the optional
-`--config` parameter, e.g.
+You can override default JSLint options by passing config file with the optional `--config` parameter:
 
     $ nodelint file1 file2 dir1 dir2 --config path/to/your/config/file.js
 
@@ -64,6 +59,7 @@ For example, if the default config.js has:
     var options = {
         adsafe       : false,
         bitwise      : true,
+        ...
         error_prefix : "\u001b[1m",
         error_suffix : ":\u001b[0m "
     };
@@ -81,6 +77,7 @@ Then the final options used will be:
         adsafe       : false,
         bitwise      : false,
         browser      : false,
+        ...
         error_prefix : "\u001b[1m",
         error_suffix : ":\u001b[0m "
     };
@@ -88,6 +85,18 @@ Then the final options used will be:
 Take a look at [JSLint's options] to see what to put in the `options` variable.
 
 [JSLint's options]: http://www.jslint.com/lint.html#options
+
+You can also add your configuration inside the JS files itself:
+JSLint will use this one instead of the global one.
+
+Simply add some comments at the beginning of the file.
+Note that there is no space between /* and global and between /* and jslint:
+
+    // define your global objects:
+    /*global YUI, JQuery */
+
+    // define your jslint-options:
+    /*jslint white: true, onevar: true, undef: true, nomen: true */
 
 
 reporters
@@ -119,10 +128,11 @@ reporter:
 
 `$ ./nodelint path/to/file.js --reporter path/to/file/example-reporter.js`
 
-For brevity sake, this is a fairly simple reporter. For more elaborate examples
-see the `examples/reporters/` directory or `examples/textmate/`.
+For brevity sake, this is a fairly simple reporter.
 
-The sample XML reporter `examples\reporters\xml.js` produces reports which can
+Nodelint includes some build-in reportes for VIM, Textmate and JetBrains IDEA integration.
+
+Also it include XML reporter, that produces reports which can
 also be integrated with a Continuous Integration server like [Hudson] using the
 [Violations Plugin].
 
@@ -130,6 +140,7 @@ Please see the [wiki][wiki] for integration with various editors.
 
 [Hudson]: http://hudson-ci.org
 [Violations Plugin]: http://wiki.hudson-ci.org/display/HUDSON/Violations
+
 
 contribute
 ----------
