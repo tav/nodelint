@@ -60,8 +60,7 @@ For example, if the default config.js has:
         adsafe       : false,
         bitwise      : true,
         ...
-        error_prefix : "\u001b[1m",
-        error_suffix : ":\u001b[0m "
+        "predef"     : []
     };
 
 And your own path/to/your/config/file.js looks like:
@@ -78,8 +77,7 @@ Then the final options used will be:
         bitwise      : false,
         browser      : false,
         ...
-        error_prefix : "\u001b[1m",
-        error_suffix : ":\u001b[0m "
+        "predef"     : []
     };
 
 Take a look at [JSLint's options] to see what to put in the `options` variable.
@@ -102,26 +100,25 @@ Note that there is no space between /* and global and between /* and jslint:
 reporters
 ---------
 
-By default nodelint uses an internal `reporter` function to output it's results
-to the console. For basic use it's possible to alter the `error_prefix` and
-`error_suffix` colors within your `config.js` file. This will prepend or append
-coloring information to the results when JSLint complains about your code. There
-may be times when a more customizable reporting system might be needed (*i.e.
-IDE/Text Editor integrations or customized console outputs*).
+By default nodelint uses an internal `reporter` to output it's results to the console.
+There may be times when a more customizable reporting system might be needed
+(*i.e. IDE/Text Editor integrations or customized console outputs*).
 
-nodelint allows you to designate a custom reporter for outputting the results
-from JSLint's run. This `reporter` function will override the default function
+`nodelint` allows you to designate a custom reporter for outputting the results
+from JSLint's run. This `reporter` will override the default one
 built into nodelint. To utilize a custom reporter first create a js file that
-has a function in it named `reporter`:
+exports `reporter` function:
 
 `example-reporter.js`:
 
     var util = require('util');
 
-    function reporter(results) {
+    function report(results) {
         var len = results.length;
         util.puts(len + ' error' + ((len === 1) ? '' : 's'));
     }
+
+    export.report = report;
 
 Then when you run nodelint from the command line, pass in the customized
 reporter:
@@ -130,7 +127,7 @@ reporter:
 
 For brevity sake, this is a fairly simple reporter.
 
-Nodelint includes some build-in reportes for VIM, Textmate and JetBrains IDEA integration.
+`nodelint` includes some build-in reportes for VIM, Textmate and JetBrains IDEA integration.
 
 Also it include XML reporter, that produces reports which can
 also be integrated with a Continuous Integration server like [Hudson] using the

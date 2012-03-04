@@ -5,8 +5,6 @@
  * Options support added by Corey Hart <corey@codenothing.com>
  */
 
-
-
 var options = {
     "adsafe"     : false, // if ADsafe should be enforced
     "bitwise"    : true,  // if bitwise operators should not be allowed
