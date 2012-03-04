@@ -74,7 +74,7 @@ exports.TextmateFull = function (test) {
 };
 
 /**
- * Test for Textmate summary reporter reporter
+ * Test for Textmate summary reporter
  *
  * @param test
  */

@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 /* vim:set ft=javascript ts=8 sw=4 tw=0 : */
 
 /*
@@ -50,8 +50,6 @@
   function lint(files, default_config_file, config_file, reporter) {
     var retval = 0,
         results = [],
-        error_prefix,
-        error_suffix,
         option_name,
         real_options;
 
@@ -83,9 +81,6 @@
         }
       }
     }
-
-    error_prefix = real_options.error_prefix;
-    error_suffix = real_options.error_suffix;
 
     files.forEach(function (file) {
       var source,

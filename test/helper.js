@@ -16,8 +16,14 @@ var node_deprecated_warning = "The \"sys\" module is now called \"util\". "
 /**
  * Helper for console run output test
  */
-function testConsoleOutput(file, args, expected, test) {
-  childProcess.execFile(file, args, function (error, stdout, stderr) {
+function testConsoleOutput(file, args, options, expected, test) {
+  if (arguments.length === 4) {
+    test = expected;
+    expected = options;
+    options = null;
+  }
+
+  childProcess.execFile(file, args, options, function (error, stdout, stderr) {
     var testsCount = 0;
     if (expected.hasOwnProperty('exitCode')) {
       testsCount += 1; // error.code || !error

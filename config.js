@@ -5,6 +5,8 @@
  * Options support added by Corey Hart <corey@codenothing.com>
  */
 
+
+
 var options = {
     "adsafe"     : false, // if ADsafe should be enforced
     "bitwise"    : true,  // if bitwise operators should not be allowed
@@ -43,9 +45,5 @@ var options = {
     "windows"    : false, // if MS Windows-specific globals should be predefined
 
     // the names of predefined global variables:
-    "predef"     : [],
-
-    // customise the error reporting -- the following colours the text red
-    "error_prefix" : "\u001b[1m",
-    "error_suffix" : ":\u001b[0m "
+    "predef"     : []
 };
