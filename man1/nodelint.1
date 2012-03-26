@@ -1,7 +1,7 @@
 .\" Generated with Ronnjs 0.3.8
 .\" http://github.com/kapouer/ronnjs/
 .
-.TH "NODELINT" "1" "November 2011" "" ""
+.TH "NODELINT" "1" "March 2012" "" ""
 .
 .SH "NAME"
 \fBnodelint\fR \-\- Run JSLint from the command\-line under node\.js
@@ -88,9 +88,7 @@ For example, if the default config\.js looks like:
 .nf
 var options = {
     adsafe       : false,
-    bitwise      : true,
-    error_prefix : "\\u001b[1m",
-    error_suffix : ":\\u001b[0m "
+    bitwise      : true
 };
 .
 .fi
@@ -121,9 +119,7 @@ Then the final options will be:
 var options = {
     adsafe       : false,
     bitwise      : false,
-    browser      : false,
-    error_prefix : "\\u001b[1m",
-    error_suffix : ":\\u001b[0m "
+    browser      : false
 };
 .
 .fi

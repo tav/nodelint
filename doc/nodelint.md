@@ -45,9 +45,7 @@ For example, if the default config.js looks like:
 
     var options = {
         adsafe       : false,
-        bitwise      : true,
-        error_prefix : "\u001b[1m",
-        error_suffix : ":\u001b[0m "
+        bitwise      : true
     };
 
 And your custom.js looks like:
@@ -62,9 +60,7 @@ Then the final options will be:
     var options = {
         adsafe       : false,
         bitwise      : false,
-        browser      : false,
-        error_prefix : "\u001b[1m",
-        error_suffix : ":\u001b[0m "
+        browser      : false
     };
 
 ## JSLINT OPTIONS
