@@ -17,7 +17,7 @@ var node_deprecated_warning = "The \"sys\" module is now called \"util\". "
  * Helper for console run output test
  */
 function testConsoleOutput(file, args, options, expected, test) {
-  if (arguments.length === 4) {
+  if (typeof test === 'undefined') {
     test = expected;
     expected = options;
     options = null;
