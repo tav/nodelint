@@ -5,6 +5,8 @@
  * Options support added by Corey Hart <corey@codenothing.com>
  */
 
+/*jslint indent: 4*/
+
 var options = {
     anon:       false, // if the space may be omitted in anonymous function declarations
     bitwise:    true,  // if bitwise operators should be allowed
@@ -29,12 +31,12 @@ var options = {
     passfail:   false, // if the scan should stop on first error
     plusplus:   true,  // if increment/decrement should be allowed
     properties: false, // if all property names must be declared with /*properties*/
-    regexp:     false, // if the . should be allowed in regexp literals
+    regexp:     true,  // if the . should be allowed in regexp literals // TODO: fix this later
     rhino:      false, // if the Rhino environment globals should be predefined
     undef:      false, // if variables can be declared out of order
     unparam:    false, // if unused parameters should be tolerated
-    sloppy:     false, // if the 'use strict'; pragma is optional
-    stupid:     false, // if really stupid practices are tolerated
+    sloppy:     true,  // if the 'use strict'; pragma is optional // TODO: fix this later
+    stupid:     true,  // if really stupid practices are tolerated // TODO: fix this later
     sub:        false, // if all forms of subscript notation are tolerated
     vars:       false, // if multiple var statements per function should be allowed
     white:      false, // if sloppy whitespace is tolerated
