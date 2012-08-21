@@ -24,7 +24,7 @@ exports.DefaultNoColor = function (test) {
     ['--reporter=default', __dirname + '/fixtures/some-errors.js.nolint'],
     {env: env},
     {
-      stdout: __dirname + "/fixtures/some-errors.js.nolint, line 4, character 7: "
+      stdout: __dirname + "/fixtures/some-errors.js.nolint, line 5, character 7: "
             + "Expected a conditional expression and instead saw an assignment.\n"
             + "if (a = b) {\n1 error\n",
       stderr: '',
@@ -49,7 +49,7 @@ exports.DefaultColor = function (test) {
     {env: env},
     {
       stdout: "\u001b[1;31m"
-            + __dirname + "/fixtures/some-errors.js.nolint, line 4, character 7:\u001b[0m "
+            + __dirname + "/fixtures/some-errors.js.nolint, line 5, character 7:\u001b[0m "
             + "Expected a conditional expression and instead saw an assignment.\n"
             + "if (a = b) {\n1 error\n",
       stderr: '',
@@ -73,7 +73,7 @@ exports.TextmateSummary = function (test) {
     ['--reporter=textmate_summary', __dirname + '/fixtures/some-errors.js.nolint'],
     {env: env},
     {
-      stdout: "some-errors.js.nolint: line 4, character 7, "
+      stdout: "some-errors.js.nolint: line 5, character 7, "
             + "Expected a conditional expression and instead saw an assignment.\n"
             + "if (a = b) {\n\n1 error\n",
       stderr: '',
