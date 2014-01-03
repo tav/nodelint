@@ -118,7 +118,7 @@ exports `reporter` function:
         util.puts(len + ' error' + ((len === 1) ? '' : 's'));
     }
 
-    export.report = report;
+    exports.report = report;
 
 Then when you run nodelint from the command line, pass in the customized
 reporter:
