@@ -31,7 +31,9 @@
   },
   "directories": { "doc": "./doc", "man": "./man1" },
   "dependencies": {
-    "file": ">=0.2.0"
+    "file": ">=0.2.0",
+    "underscore"  : "x",
+    "cli-table" : "x"
   },
   "devDependencies": {
     "nodeunit": ">=0.6.2",
