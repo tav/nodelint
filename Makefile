@@ -23,9 +23,10 @@ all: build doc
 
 build: stamp-build
 
-stamp-build: dependencies jslint/jslint.js nodelint config.js
+stamp-build: stamp-dependencies jslint/jslint.js nodelint config.js
 	touch stamp-build;
 	cp $^ $(BUILDDIR);
+	mv $(BUILDDIR)/stamp-dependencies $(BUILDDIR)/dependencies	
 	perl -pi -e 's{^\s*SCRIPT_DIRECTORY =.*?\n}{}ms' $(BUILDDIR)/nodelint
 	perl -pi -e 's{path\.join\(SCRIPT_DIRECTORY, '\''config.js'\''\)}{"$(ETCDIR)/nodelint.conf"}' $(BUILDDIR)/nodelint
 	perl -pi -e 's{path\.join\(SCRIPT_DIRECTORY, '\''jslint/jslint\.js'\''\)}{"$(PACKAGEDATADIR)/jslint.js"}' $(BUILDDIR)/nodelint
